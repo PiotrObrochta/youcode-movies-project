@@ -10,4 +10,8 @@ export const GlobalStyle = createGlobalStyle`
   *::before {
     box-sizing: inherit;
   }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+  }
 `;
