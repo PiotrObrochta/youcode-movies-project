@@ -2,8 +2,9 @@ export const theme = {
   colors: {
     black: "#000",
     white: "#fff",
-    whisper: "#f0f0f0",
-    yellow: "#f5c518",
-    gray: "#7e839a",
+    whisper: "#F5F5FA",
+    yellow: "#FCD420",
+    gray: "#E4E6F0",
+    darkGray: "#7E839A",
   },
 };

@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { FaStar } from "react-icons/fa";
 
 export const Card = styled.div`
   width: 324px;
   height: 650px;
-  background: #fff;
+  background: ${({ theme }) => theme.colors.white};
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -17,7 +18,7 @@ export const Poster = styled.img`
   width: 292px;
   height: 434px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 5px;
   align-self: center;
 `;
 
@@ -30,13 +31,13 @@ export const Content = styled.div`
 
 export const Title = styled.h3`
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 22px;
 `;
 
 export const Info = styled.p`
   margin: 0;
-  font-size: 0.9rem;
-  color: ${({ theme }) => theme.colors.gray};
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.darkGray};
 `;
 
 export const GenresWrapper = styled.div`
@@ -46,12 +47,18 @@ export const GenresWrapper = styled.div`
   margin-top: 8px;
 `;
 
+export const Star = styled(FaStar)`
+  color: ${({ theme }) => theme.colors.yellow};
+  width: 24px;
+  height: 24px;
+`;
+
 export const GenreTag = styled.span`
   background: ${({ theme }) => theme.colors.gray};
   color: ${({ theme }) => theme.colors.black};
-  padding: 4px 12px;
+  padding: 8px 16px 8px 16px;
   border-radius: 5px;
-  font-size: 0.8rem;
+  font-size: 14px;
 `;
 
 export const RatingWrapper = styled.div`
@@ -60,17 +67,17 @@ export const RatingWrapper = styled.div`
   left: 16px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
 `;
 
 export const RatingValue = styled.span`
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 24px;
   color: ${({ theme }) => theme.colors.black};
 `;
 
 export const RatingCount = styled.span`
   font-weight: 400;
-  font-size: 0.9rem;
-  color: ${({ theme }) => theme.colors.gray};
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.darkGray};
 `;

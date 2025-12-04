@@ -1,4 +1,3 @@
-import { FaStar } from "react-icons/fa";
 import {
   Card,
   Poster,
@@ -10,6 +9,7 @@ import {
   RatingWrapper,
   RatingValue,
   RatingCount,
+  Star,
 } from "./styled";
 
 export const MovieCard = ({ movie }) => {
@@ -58,7 +58,7 @@ export const MovieCard = ({ movie }) => {
           ))}
         </GenresWrapper>
         <RatingWrapper>
-          <FaStar color="#f5c518" size={20} />
+          <Star />
           <RatingValue>{movie.vote_average?.toFixed(1)}</RatingValue>
           <RatingCount>({movie.vote_count})</RatingCount>
         </RatingWrapper>
