@@ -10,4 +10,15 @@ export const GlobalStyle = createGlobalStyle`
   *::before {
     box-sizing: inherit;
   }
+
+    body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #E5E5E5; 
+    color: #18181B;
+    font-size: 14px;
+    font-weight: normal;
+  }
 `;
+
