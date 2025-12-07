@@ -11,8 +11,12 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: inherit;
   }
 
-  body {
+    body {
+    margin: 0;
+    padding: 0;
     font-family: 'Poppins', sans-serif;
     background: ${({ theme }) => theme.colors.whisper};
-  }
+    font-size: 14px;
+    font-weight: normal
 `;
+
