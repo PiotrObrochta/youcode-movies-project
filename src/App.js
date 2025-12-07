@@ -1,3 +1,3 @@
-function App() {}
+import HomePage from "./pages/Homepage";
 
-export default App;
+export const App = () => <HomePage />;

@@ -10,4 +10,9 @@ export const GlobalStyle = createGlobalStyle`
   *::before {
     box-sizing: inherit;
   }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: ${({ theme }) => theme.colors.whisper};
+  }
 `;
