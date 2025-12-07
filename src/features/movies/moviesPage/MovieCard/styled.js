@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { FaStar } from "react-icons/fa";
 
 export const Poster = styled.img`
   width: 100%;
@@ -65,12 +64,6 @@ export const GenresWrapper = styled.div`
   gap: 8px;
   flex-wrap: wrap;
   margin-top: 8px;
-`;
-
-export const Star = styled(FaStar)`
-  color: ${({ theme }) => theme.colors.yellow};
-  width: 24px;
-  height: 24px;
 `;
 
 export const GenreTag = styled.span`
