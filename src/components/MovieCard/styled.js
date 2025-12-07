@@ -1,9 +1,24 @@
 import styled from "styled-components";
+import { FaStar } from "react-icons/fa";
+
+export const Poster = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+`;
+
+export const Title = styled.h3`
+  margin: 0;
+  font-size: 22px;
+  color: ${({ theme }) => theme.colors.black};
+  transition: all 0.3s ease;
+`;
 
 export const Card = styled.div`
   width: 324px;
   height: 650px;
-  background: #fff;
+  background: ${({ theme }) => theme.colors.white};
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -11,13 +26,24 @@ export const Card = styled.div`
   overflow: hidden;
   position: relative;
   padding: 16px;
+  cursor: pointer;
+
+  &:hover ${Poster} {
+    transform: scale(1.06);
+  }
+
+  &:hover ${Title} {
+    color: ${({ theme }) =>
+      theme.colors
+        .yellow}; //Zmiana koloru Tytułu w kafelku, jak nie potrzebne lub brzydkie - usunąc cały hover
+  }
 `;
 
-export const Poster = styled.img`
-  width: 292px;
+export const PosterWrapper = styled.div`
+  width: 100%;
   height: 434px;
-  object-fit: cover;
-  border-radius: 4px;
+  overflow: hidden;
+  border-radius: 5px;
   align-self: center;
 `;
 
@@ -28,15 +54,10 @@ export const Content = styled.div`
   padding-top: 16px;
 `;
 
-export const Title = styled.h3`
-  margin: 0;
-  font-size: 1.2rem;
-`;
-
 export const Info = styled.p`
   margin: 0;
-  font-size: 0.9rem;
-  color: ${({ theme }) => theme.colors.gray};
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.darkGray};
 `;
 
 export const GenresWrapper = styled.div`
@@ -46,12 +67,18 @@ export const GenresWrapper = styled.div`
   margin-top: 8px;
 `;
 
+export const Star = styled(FaStar)`
+  color: ${({ theme }) => theme.colors.yellow};
+  width: 24px;
+  height: 24px;
+`;
+
 export const GenreTag = styled.span`
   background: ${({ theme }) => theme.colors.gray};
   color: ${({ theme }) => theme.colors.black};
-  padding: 4px 12px;
+  padding: 8px 16px 8px 16px;
   border-radius: 5px;
-  font-size: 0.8rem;
+  font-size: 14px;
 `;
 
 export const RatingWrapper = styled.div`
@@ -60,17 +87,17 @@ export const RatingWrapper = styled.div`
   left: 16px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
 `;
 
 export const RatingValue = styled.span`
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 24px;
   color: ${({ theme }) => theme.colors.black};
 `;
 
 export const RatingCount = styled.span`
   font-weight: 400;
-  font-size: 0.9rem;
-  color: ${({ theme }) => theme.colors.gray};
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.darkGray};
 `;

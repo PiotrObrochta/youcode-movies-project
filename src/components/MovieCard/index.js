@@ -1,4 +1,3 @@
-import { FaStar } from "react-icons/fa";
 import {
   Card,
   Poster,
@@ -10,6 +9,8 @@ import {
   RatingWrapper,
   RatingValue,
   RatingCount,
+  Star,
+  PosterWrapper,
 } from "./styled";
 
 export const MovieCard = ({ movie }) => {
@@ -41,14 +42,16 @@ export const MovieCard = ({ movie }) => {
 
   return (
     <Card>
-      <Poster
-        src={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-            : "https://via.placeholder.com/500x750?text=No+Image"
-        }
-        alt={movie.title}
-      />
+      <PosterWrapper>
+        <Poster
+          src={
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+              : "https://via.placeholder.com/500x750?text=No+Image"
+          }
+          alt={movie.title}
+        />
+      </PosterWrapper>
       <Content>
         <Title>{movie.title}</Title>
         <Info>{movie.release_date?.slice(0, 4)}</Info>
@@ -58,7 +61,7 @@ export const MovieCard = ({ movie }) => {
           ))}
         </GenresWrapper>
         <RatingWrapper>
-          <FaStar color="#f5c518" size={20} />
+          <Star />
           <RatingValue>{movie.vote_average?.toFixed(1)}</RatingValue>
           <RatingCount>({movie.vote_count})</RatingCount>
         </RatingWrapper>
