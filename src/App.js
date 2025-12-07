@@ -1,3 +1,3 @@
-import { HomePage } from "./pages/Homepage";
+import HomePage from "./pages/Homepage";
 
 export const App = () => <HomePage />;
