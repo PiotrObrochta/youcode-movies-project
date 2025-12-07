@@ -9,7 +9,6 @@ import {
   RatingWrapper,
   RatingValue,
   RatingCount,
-  Star,
   PosterWrapper,
 } from "./styled";
 
@@ -61,7 +60,6 @@ export const MovieCard = ({ movie }) => {
           ))}
         </GenresWrapper>
         <RatingWrapper>
-          <Star />
           <RatingValue>{movie.vote_average?.toFixed(1)}</RatingValue>
           <RatingCount>({movie.vote_count})</RatingCount>
         </RatingWrapper>

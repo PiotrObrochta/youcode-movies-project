@@ -1,3 +1,3 @@
-import HomePage from "./pages/Homepage";
+import MoviesPage from "./features/movies/moviesPage";
 
-export const App = () => <HomePage />;
+export const App = () => <MoviesPage />;

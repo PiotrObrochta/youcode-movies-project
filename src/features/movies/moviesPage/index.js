@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import { MovieCard } from "../MovieCard";
-import { fetchPopularMovies } from "../../api/movies";
-import { MoviesWrapper } from "./styled"; // <── IMPORT styled.js
+import { Wrapper } from "../../../common/Wrapper";
+import { useEffect } from "react";
+import { useState } from "react";
+import { fetchPopularMovies } from "../../../api/movies";
+import { MovieCard } from "./MovieCard";
 
-export const MovieList = () => {
+export const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,12 +19,14 @@ export const MovieList = () => {
 
   if (loading) return <p>Ładowanie...</p>;
   if (!movies.length) return <p>Nic nie znaleziono</p>;
-
   return (
-    <MoviesWrapper>
-      {movies.slice(0, 8).map((m) => (
+    <div>
+      <h1>Popular Movies</h1>
+      <Wrapper body={movies.slice(0, 8).map((m) => (
         <MovieCard key={m.id} movie={m} />
-      ))}
-    </MoviesWrapper>
+      ))} />
+    </div>
   );
 };
+
+export default MoviesPage;
