@@ -3,13 +3,7 @@ import Navigation from "./common/Navigation";
 function App() {
   return (
     <>
-      {}
       <Navigation />
-
-      {}
-      <main>
-        {}
-      </main>
     </>
   );
 }
