@@ -22,9 +22,11 @@ export const MoviesPage = () => {
   return (
     <div>
       <h1>Popular Movies</h1>
-      <Wrapper body={movies.slice(0, 8).map((m) => (
-        <MovieCard key={m.id} movie={m} />
-      ))} />
+      <Wrapper>
+        {movies.slice(0, 8).map((m) => (
+          <MovieCard key={m.id} movie={m} />
+        ))}
+      </Wrapper>
     </div>
   );
 };

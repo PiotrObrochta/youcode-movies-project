@@ -1,5 +1,5 @@
 import { ListWrapper } from "./styled";
 
-export const Wrapper = ({ body }) => {
-  return <ListWrapper>{body}</ListWrapper>;
+export const Wrapper = ({ children }) => {
+  return <ListWrapper>{children}</ListWrapper>;
 };
