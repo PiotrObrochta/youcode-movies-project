@@ -11,7 +11,6 @@ export const Title = styled.h3`
   margin: 0;
   font-size: 22px;
   color: ${({ theme }) => theme.colors.black};
-  transition: all 0.3s ease;
 `;
 
 export const Card = styled.div`
