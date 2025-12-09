@@ -1,16 +1,11 @@
 import styled from "styled-components";
+import { ReactComponent as StarIcon } from "../../../../assets/star.svg";
 
 export const Poster = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
-`;
-
-export const Title = styled.h3`
-  margin: 0;
-  font-size: 22px;
-  color: ${({ theme }) => theme.colors.black};
 `;
 
 export const Card = styled.div`
@@ -29,6 +24,12 @@ export const Card = styled.div`
   &:hover ${Poster} {
     transform: scale(1.06);
   }
+`;
+
+export const Title = styled.h3`
+  margin: 0;
+  font-size: 22px;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 export const PosterWrapper = styled.div`
@@ -86,4 +87,10 @@ export const RatingCount = styled.span`
   font-weight: 400;
   font-size: 16px;
   color: ${({ theme }) => theme.colors.darkGray};
+`;
+
+export const Star = styled(StarIcon)`
+  width: 20px;
+  height: 20px;
+  fill: ${({ theme }) => theme.colors.yellow};
 `;
