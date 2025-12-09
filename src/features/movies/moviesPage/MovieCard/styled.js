@@ -30,12 +30,6 @@ export const Card = styled.div`
   &:hover ${Poster} {
     transform: scale(1.06);
   }
-
-  &:hover ${Title} {
-    color: ${({ theme }) =>
-      theme.colors
-        .yellow}; //Zmiana koloru Tytułu w kafelku, jak nie potrzebne lub brzydkie - usunąc cały hover
-  }
 `;
 
 export const PosterWrapper = styled.div`
