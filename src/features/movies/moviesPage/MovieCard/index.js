@@ -63,7 +63,7 @@ export const MovieCard = ({ movie }) => {
         <RatingWrapper>
           <Star />
           <RatingValue>{movie.vote_average?.toFixed(1)}</RatingValue>
-          <RatingCount>({movie.vote_count})</RatingCount>
+          <RatingCount>{movie.vote_count} votes</RatingCount>
         </RatingWrapper>
       </Content>
     </Card>
