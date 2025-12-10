@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   Card,
   Poster,
@@ -11,33 +12,17 @@ import {
   RatingCount,
   PosterWrapper,
 } from "./styled";
+import { selectFetchMoviesGenresStatus, selectMoviesGenres } from "../../moviesSlice";
 
 export const MovieCard = ({ movie }) => {
+  const moviesGenres = useSelector(selectMoviesGenres);
+  const fetchMoviesGeneresStatus = useSelector(selectFetchMoviesGenresStatus);
+
   if (!movie) return null;
+  if (!fetchMoviesGeneresStatus === "success") return;
 
-  const genreMap = {
-    28: "Action",
-    12: "Adventure",
-    16: "Animation",
-    35: "Comedy",
-    80: "Crime",
-    99: "Documentary",
-    18: "Drama",
-    10751: "Family",
-    14: "Fantasy",
-    36: "History",
-    27: "Horror",
-    10402: "Music",
-    9648: "Mystery",
-    10749: "Romance",
-    878: "Sci-Fi",
-    10770: "TV Movie",
-    53: "Thriller",
-    10752: "War",
-    37: "Western",
-  };
+  const movieGenres = (movie.genre_ids || []).slice(0, 3).map(id => moviesGenres.find(genre => genre.id === id))
 
-  const genres = (movie.genre_ids || []).slice(0, 3).map((id) => genreMap[id]);
 
   return (
     <Card>
@@ -55,8 +40,8 @@ export const MovieCard = ({ movie }) => {
         <Title>{movie.title}</Title>
         <Info>{movie.release_date?.slice(0, 4)}</Info>
         <GenresWrapper>
-          {genres.map((g, i) => (
-            <GenreTag key={i}>{g}</GenreTag>
+          {movieGenres.map(({ id, name }) => (
+            <GenreTag key={id}>{name}</GenreTag>
           ))}
         </GenresWrapper>
         <RatingWrapper>
