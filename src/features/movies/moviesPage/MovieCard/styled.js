@@ -3,7 +3,7 @@ import { ReactComponent as StarIcon } from "../../../../assets/star.svg";
 
 export const Card = styled.div`
   width: 324px;
-  height: 650px;
+  min-height: 650px;
   background: ${({ theme }) => theme.colors.white};
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -15,10 +15,12 @@ export const Card = styled.div`
   cursor: pointer;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
+    width: 100%;
+    max-width: 288px;
+    min-height: 201px;
     flex-direction: row;
-    width: 288px;
-    height: 201px;
     padding: 16px;
+    gap: 12px;
   }
 `;
 
@@ -54,7 +56,7 @@ export const Content = styled.div`
   flex-direction: column;
   flex: 1;
   padding-top: 16px;
-  justify-content: space-between;
+  box-sizing: border-box;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     padding-top: 0;
@@ -63,15 +65,28 @@ export const Content = styled.div`
   }
 `;
 
+export const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
 export const Title = styled.h3`
   margin: 0;
   font-weight: 500;
   font-size: 22px;
-  line-height: 130%;
+  line-height: 1.3;
   color: ${({ theme }) => theme.colors.black};
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     font-size: 16px;
+    -webkit-line-clamp: 2;
   }
 `;
 
@@ -79,7 +94,6 @@ export const Info = styled.p`
   margin: 0;
   font-weight: 400;
   font-size: 16px;
-  line-height: 150%;
   color: ${({ theme }) => theme.colors.darkGray};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
@@ -90,30 +104,30 @@ export const Info = styled.p`
 export const GenresWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin: 8px 0 0 0;
+  gap: 8px;
+  margin-top: 0;
+  max-height: 48px;
+  overflow: hidden;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     gap: 4px;
-    margin: 4px 0 0 0;
   }
 `;
 
 export const GenreTag = styled.span`
   background: ${({ theme }) => theme.colors.gray};
   color: ${({ theme }) => theme.colors.black};
-  padding: 8px 16px;
+  padding: 6px 12px;
   border-radius: 5px;
   font-weight: 400;
   font-size: 12px;
-  line-height: 140%;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
+    padding: 4px 6px;
     font-size: 10px;
-    padding: 4px 8px;
   }
 `;
 
@@ -121,28 +135,27 @@ export const RatingWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 8px;
+  margin-top: auto;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     gap: 6px;
-    margin-top: 4px;
+    margin-top: 8px;
   }
 `;
 
 export const RatingValue = styled.span`
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
   color: ${({ theme }) => theme.colors.black};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
-    font-size: 12px;
+    font-size: 14px;
   }
 `;
 
 export const RatingCount = styled.span`
   font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
+  font-size: 14px;
   color: ${({ theme }) => theme.colors.darkGray};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
@@ -151,12 +164,12 @@ export const RatingCount = styled.span`
 `;
 
 export const Star = styled(StarIcon)`
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   fill: ${({ theme }) => theme.colors.yellow};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
   }
 `;
