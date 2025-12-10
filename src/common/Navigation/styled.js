@@ -4,7 +4,7 @@ import { ReactComponent as CameraIcon } from "../../assets/icons/Video.svg";
 
 export const Wrapper = styled.header`
   width: 100%;
-  background-color: #18181b;
+  background-color: ${({ theme }) => theme.colors.black};
   padding: 16px 52px;
   display: flex;
   align-items: center;
@@ -30,7 +30,7 @@ export const Left = styled.div`
 export const CameraIconStyled = styled(CameraIcon)`
   width: 24px;
   height: 24px;
-  stroke: #ffffff;
+  stroke: ${({ theme }) => theme.colors.white};
   fill: none;
 `;
 
@@ -39,7 +39,7 @@ export const Title = styled.h1`
   font-weight: 500;
   line-height: 40px;
   letter-spacing: -1.5px;
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.white};
   margin: 0;
   display: flex;
   align-items: center;
@@ -71,7 +71,7 @@ export const Menu = styled.nav`
 `;
 
 export const MenuLink = styled(NavLink)`
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
   font-size: 14px;
   text-decoration: none;
   padding: 8px 24px;
@@ -79,7 +79,7 @@ export const MenuLink = styled(NavLink)`
   border: 1px solid transparent;
 
   &.active {
-    border-color: white;
+    border-color: ${({ theme }) => theme.colors.white};
   }
 
   @media (max-width: 768px) {
@@ -105,10 +105,10 @@ export const SearchInput = styled.input`
   outline: none;
   background: transparent;
   font-family: "Poppins", sans-serif;
-  color: #7e839a;
+  color: ${({ theme }) => theme.colors.darkGray};
 
   &::placeholder {
-    color: #7e839a;
+    color: ${({ theme }) => theme.colors.darkGray};
   }
 `;
 
@@ -122,14 +122,14 @@ export const SearchWrapper = styled.div`
 
   padding: 0 20px;
 
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 33px;
-  border: 1px solid #e4e6f0;
+  border: 1px solid ${({ theme }) => theme.colors.gray};
 
   svg {
     width: 24px;
     height: 24px;
-    stroke: #7e839a;
+    stroke: ${({ theme }) => theme.colors.darkGray};
     stroke-width: 2;
   }
 
