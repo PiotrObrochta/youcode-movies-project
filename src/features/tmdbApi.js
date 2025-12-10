@@ -10,8 +10,11 @@ export const getDataFromApi = async (type = "movie", page = 1) => {
         case "people":
             endpoint = `https://api.themoviedb.org/3/person/popular?api_key=${apiKey}&language=en-US&page=${page}`;
             break;
+        case "genre":
+            endpoint = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`;
+            break;
         default:
-            endpoint = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`;
+            endpoint = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`;
     }
 
     const response = await fetch(endpoint);
@@ -22,6 +25,7 @@ export const getDataFromApi = async (type = "movie", page = 1) => {
 
     const result = await response.json();
 
+    if (type === "genre") return result.genres
     return await result.results;
 }
 
