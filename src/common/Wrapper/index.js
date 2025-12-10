@@ -1,10 +1,10 @@
 import { ListWrapper } from "./styled"; // <── IMPORT styled.js
 
-export const Wrapper = ({ body }) => {
+export const Wrapper = ({ children }) => {
 
   return (
     <ListWrapper>
-      {body}
+      {children}
     </ListWrapper>
   );
 };
