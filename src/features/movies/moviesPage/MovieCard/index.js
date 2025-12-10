@@ -1,7 +1,9 @@
 import {
   Card,
+  PosterWrapper,
   Poster,
   Content,
+  InfoWrapper,
   Title,
   Info,
   GenresWrapper,
@@ -9,7 +11,7 @@ import {
   RatingWrapper,
   RatingValue,
   RatingCount,
-  PosterWrapper,
+  Star,
 } from "./styled";
 
 export const MovieCard = ({ movie }) => {
@@ -37,7 +39,9 @@ export const MovieCard = ({ movie }) => {
     37: "Western",
   };
 
-  const genres = (movie.genre_ids || []).slice(0, 3).map((id) => genreMap[id]);
+  const genres = (movie.genre_ids || [])
+    .slice(0, 3)
+    .map((id) => genreMap[id] || "—");
 
   return (
     <Card>
@@ -46,24 +50,31 @@ export const MovieCard = ({ movie }) => {
           src={
             movie.poster_path
               ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-              : "https://via.placeholder.com/500x750?text=No+Image"
+              : "https://via.placeholder.com/292x434?text=No+Image"
           }
           alt={movie.title}
         />
       </PosterWrapper>
+
       <Content>
-        <Title>{movie.title}</Title>
-        <Info>{movie.release_date?.slice(0, 4)}</Info>
-        <GenresWrapper>
-          {genres.map((g, i) => (
-            <GenreTag key={i}>{g}</GenreTag>
-          ))}
-        </GenresWrapper>
+        <InfoWrapper>
+          <Title>{movie.title}</Title>
+          <Info>{movie.release_date?.slice(0, 4) || "—"}</Info>
+          <GenresWrapper>
+            {genres.map((g, i) => (
+              <GenreTag key={i}>{g}</GenreTag>
+            ))}
+          </GenresWrapper>
+        </InfoWrapper>
+
         <RatingWrapper>
-          <RatingValue>{movie.vote_average?.toFixed(1)}</RatingValue>
-          <RatingCount>({movie.vote_count})</RatingCount>
+          <Star />
+          <RatingValue>{movie.vote_average?.toFixed(1) ?? "-"}</RatingValue>
+          <RatingCount>{movie.vote_count ?? 0} votes</RatingCount>
         </RatingWrapper>
       </Content>
     </Card>
   );
 };
+
+export default MovieCard;
