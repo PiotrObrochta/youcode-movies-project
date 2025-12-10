@@ -1,13 +1,13 @@
 import { call, delay, put, takeLatest } from "redux-saga/effects";
 import { fetchPopularMovies, setFetchPopularMoviesStatus, setPopularMovies } from "./moviesSlice"
-import { getPopularMovies } from "./tmdbApi";
+import { getDataFromApi } from "../tmdbApi";
 
 function* fetchPopularMoviesHandler (page) {
     try {
         yield put(setFetchPopularMoviesStatus('loading'));
         yield delay(1000);
 
-        const movies = yield call(getPopularMovies, page || 1);
+        const movies = yield call(getDataFromApi, "movie", page || 1);
 
         yield put(setPopularMovies(movies))
         yield put(setFetchPopularMoviesStatus("success"))
