@@ -36,21 +36,16 @@ export const GridWrapper = styled.div`
 
   grid-template-columns: repeat(4, 324px);
 
-  @media (max-width: 1200px) {
-    grid-template-columns: repeat(3, 324px);
+  @media (max-width: ${({ theme }) => theme.breakpoints.smallWindow}) {
+    grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
   }
 
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, 324px);
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
+     grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
   }
 
-  @media (max-width: 767px) {
-    justify-content: center;
-    grid-template-columns: repeat(2, 288px);
-  }
-
-  @media (max-width: 659px) {
+  /* @media (max-width: 659px) {
     justify-content: center;
     grid-template-columns: 288px;
-  }
+  } */
 `;

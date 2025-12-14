@@ -14,9 +14,18 @@ export const Card = styled.div`
   padding: 16px;
   cursor: pointer;
 
+  @media (max-width: ${({ theme }) => theme.breakpoints.smallWindow}) {
+    width: 100%;
+    min-width: 430px;
+    min-height: 201px;
+    flex-direction: row;
+    padding: 16px;
+    gap: 16px;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     width: 100%;
-    max-width: 288px;
+    min-width: 288px;
     min-height: 201px;
     flex-direction: row;
     padding: 16px;
@@ -31,6 +40,12 @@ export const PosterWrapper = styled.div`
   border-radius: 5px;
   flex-shrink: 0;
   align-self: center;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.smallWindow}) {
+    width: auto;
+    height: 300px;
+    align-self: flex-start;
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     width: 114px;
@@ -58,8 +73,14 @@ export const Content = styled.div`
   padding-top: 16px;
   box-sizing: border-box;
 
+  @media (max-width: ${({ theme }) => theme.breakpoints.smallWindow}) {
+    padding-top: 0;
+    justify-content: space-between;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     padding-top: 0;
+    justify-content: normal;
   }
 `;
 
@@ -104,12 +125,7 @@ export const GenresWrapper = styled.div`
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 0;
-  max-height: 48px;
   overflow: hidden;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
-    gap: 4px;
-  }
 `;
 
 export const GenreTag = styled.span`
@@ -135,7 +151,7 @@ export const RatingWrapper = styled.div`
   gap: 12px;
   margin-top: auto;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.smallWindow}) {
     gap: 6px;
     margin-top: 12px;
   }
