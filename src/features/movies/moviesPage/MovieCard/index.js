@@ -54,7 +54,7 @@ export const MovieCard = ({ movie }) => {
           <RatingValue>{movie.vote_average?.toFixed(1) ?? "-"}</RatingValue>
           <RatingCount>{movie.vote_count ?? 0} votes</RatingCount>
         </RatingWrapper>
-        <InfoWrapper>
+        </InfoWrapper>
       </Content>
     </Card>
   );
