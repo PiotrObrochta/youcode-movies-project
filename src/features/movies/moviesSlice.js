@@ -6,7 +6,7 @@ const moviesSlice = createSlice({
         popularMovies: [],
         fetchPopularMoviesStatus: "loading",
         moviesGenres: [],
-        fetchMoviesGeneresStatus: "loading"
+        fetchMoviesGenresStatus: "loading"
     },
     reducers: {
         setPopularMovies: (state, {payload: moviesList}) => {
@@ -21,7 +21,7 @@ const moviesSlice = createSlice({
         },
         fetchMoviesGenres: () => {},
         setFetchMoviesGenresStatus: (state, {payload: fetchStatus}) => {
-            state.fetchMoviesGeneresStatus = fetchStatus
+            state.fetchMoviesGenresStatus = fetchStatus
         }
     }
 }
@@ -41,6 +41,6 @@ export const selectPopularMoviesState = ({ movies }) => movies;
 export const selectPopularMovies = state => selectPopularMoviesState(state).popularMovies;
 export const selectFetchPopularMoviesStatus = state => selectPopularMoviesState(state).fetchPopularMoviesStatus;
 export const selectMoviesGenres = state => selectPopularMoviesState(state).moviesGenres;
-export const selectFetchMoviesGenresStatus = state => selectPopularMoviesState(state).fetchMoviesGeneresStatus;
+export const selectFetchMoviesGenresStatus = state => selectPopularMoviesState(state).fetchMoviesGenresStatus;
 
 export default moviesSlice.reducer;

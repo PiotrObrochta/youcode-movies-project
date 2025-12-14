@@ -16,10 +16,11 @@ import { selectFetchMoviesGenresStatus, selectMoviesGenres } from "../../moviesS
 
 export const MovieCard = ({ movie }) => {
   const moviesGenres = useSelector(selectMoviesGenres);
-  const fetchMoviesGeneresStatus = useSelector(selectFetchMoviesGenresStatus);
+  const fetchMoviesGenresStatus = useSelector(selectFetchMoviesGenresStatus);
+  console.log(fetchMoviesGenresStatus)
 
   if (!movie) return null;
-  if (fetchMoviesGeneresStatus !== "success") return;
+  if (fetchMoviesGenresStatus !== "success") return;
 
   const movieGenres = (movie.genre_ids || []).slice(0, 3).map(id => moviesGenres.find(genre => genre.id === id))
 
