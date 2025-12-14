@@ -9,4 +9,8 @@ export const theme = {
     blueLight: "#D6E4FF",
     blue: "#0044CC",
   },
+  breakpoints: {
+    mobileMax: "946px",
+    smallWindow: "1440px",
+  },
 };

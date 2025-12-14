@@ -1,10 +1,21 @@
+import Navigation from "./common/Navigation";
 import MoviesPage from "./features/movies/moviesPage";
-import Pagination from "./common/Pagination";
+import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 
-export const App = () => (
-    <>
-        <MoviesPage />
-        <Pagination page={1} totalPages={500} />
-    </>
-);
+function App() {
+  return (
+    <HashRouter>
+      <Navigation />
+      <Switch>
+        <Route path="/homepage">
+          <MoviesPage />
+        </Route>
+        <Route path="/">
+          <Redirect to="/homepage" />
+        </Route>
+      </Switch>
+    </HashRouter>
+  );
+}
 
+export default App;
