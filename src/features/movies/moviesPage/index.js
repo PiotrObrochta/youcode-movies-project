@@ -3,13 +3,14 @@ import LoadingView from "../../../common/LoadingView";
 import { PageWrapper, ContentWrapper, PageTitle, GridWrapper } from "./styled";
 import { useSelector } from "react-redux";
 import { selectFetchPopularMoviesStatus, selectPopularMovies } from "../moviesSlice";
+import ErrorView from "../../../common/ErrorView";
 
 export const MoviesPage = () => {
   const movies = useSelector(selectPopularMovies);
   const fetchMoviesStatus = useSelector(selectFetchPopularMoviesStatus);
 
   if (fetchMoviesStatus === "loading") return <LoadingView header={"Movies loading..."}></LoadingView>
-  if (!movies.length) return <p>Nic nie znaleziono</p>;
+  if (fetchMoviesStatus === "error") return <ErrorView></ErrorView>
   return (
     <PageWrapper>
       <ContentWrapper>
