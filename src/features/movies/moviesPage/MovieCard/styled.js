@@ -71,11 +71,11 @@ export const Content = styled.div`
   flex-direction: column;
   flex: 1;
   padding-top: 16px;
+  justify-content: space-between;
   box-sizing: border-box;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.smallWindow}) {
     padding-top: 0;
-    justify-content: space-between;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
@@ -149,7 +149,7 @@ export const RatingWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: auto;
+  margin-top: 8px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.smallWindow}) {
     gap: 6px;

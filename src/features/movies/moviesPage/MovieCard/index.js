@@ -49,12 +49,12 @@ export const MovieCard = ({ movie }) => {
             <GenreTag key={id}>{name}</GenreTag>
           ))}
         </GenresWrapper>
+        </InfoWrapper>
         <RatingWrapper>
           <Star />
           <RatingValue>{movie.vote_average?.toFixed(1) ?? "-"}</RatingValue>
           <RatingCount>{movie.vote_count ?? 0} votes</RatingCount>
         </RatingWrapper>
-        </InfoWrapper>
       </Content>
     </Card>
   );
