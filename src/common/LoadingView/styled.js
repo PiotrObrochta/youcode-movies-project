@@ -9,7 +9,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
 
-    @media (max-width: ${({theme}) => theme.breakpoints.mobile}px) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
         margin-top: 24px;
         padding: 0px 16px;
     }
@@ -21,7 +21,7 @@ export const Header = styled.h1`
     margin: 0px;
     line-height: 120%;
 
-    @media (max-width: ${({theme}) => theme.breakpoints.mobile}px) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
         font-size: 14px;
         font-weight: 500;
         line-height: 130%;
@@ -44,7 +44,7 @@ export const Spinner = styled(spinner)`
     align-self: center;
     animation: ${spin} 1s linear infinite;
 
-    @media (max-width: ${({theme}) => theme.breakpoints.mobile}px) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
         width: 35px;
         height: 35px;
         margin-top: 24px;
