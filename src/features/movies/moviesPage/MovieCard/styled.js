@@ -20,7 +20,7 @@ export const Card = styled.div`
     min-height: 201px;
     flex-direction: row;
     padding: 16px;
-    gap: 12px;
+    gap: 16px;
   }
 `;
 
@@ -60,8 +60,6 @@ export const Content = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     padding-top: 0;
-    padding-left: 16px;
-    justify-content: flex-start;
   }
 `;
 
@@ -120,7 +118,7 @@ export const GenreTag = styled.span`
   padding: 6px 12px;
   border-radius: 5px;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -139,27 +137,27 @@ export const RatingWrapper = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     gap: 6px;
-    margin-top: 8px;
+    margin-top: 12px;
   }
 `;
 
 export const RatingValue = styled.span`
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   color: ${({ theme }) => theme.colors.black};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
-    font-size: 14px;
+    font-size: 13px;
   }
 `;
 
 export const RatingCount = styled.span`
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   color: ${({ theme }) => theme.colors.darkGray};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
-    font-size: 12px;
+    font-size: 13px;
   }
 `;
 

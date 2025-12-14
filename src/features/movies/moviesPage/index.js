@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchPopularMovies } from "../../../api/movies";
 import { MovieCard } from "./MovieCard";
-import { PageWrapper, PageTitle, GridWrapper } from "./styled";
+import { PageWrapper, ContentWrapper, PageTitle, GridWrapper } from "./styled";
 
 export const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
@@ -16,12 +16,15 @@ export const MoviesPage = () => {
 
   return (
     <PageWrapper>
-      <PageTitle>Popular Movies</PageTitle>
-      <GridWrapper>
-        {movies.slice(0, 8).map((m) => (
-          <MovieCard key={m.id} movie={m} />
-        ))}
-      </GridWrapper>
+      <ContentWrapper>
+        <PageTitle>Popular Movies</PageTitle>
+
+        <GridWrapper>
+          {movies.slice(0, 8).map((m) => (
+            <MovieCard key={m.id} movie={m} />
+          ))}
+        </GridWrapper>
+      </ContentWrapper>
     </PageWrapper>
   );
 };
