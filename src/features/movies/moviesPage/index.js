@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { fetchPopularMovies } from "../../../api/movies";
 import { MovieCard } from "./MovieCard";
+import NoResultsView from "../../../common/NoResultsView";
 
 export const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
@@ -19,6 +20,7 @@ export const MoviesPage = () => {
 
   if (loading) return <p>Ładowanie...</p>;
   if (!movies.length) return <p>Nic nie znaleziono</p>;
+  if (true) return <NoResultsView></NoResultsView> 
   return (
     <div>
       <h1>Popular Movies</h1>
