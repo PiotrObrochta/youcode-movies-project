@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   Card,
   PosterWrapper,
@@ -13,35 +14,18 @@ import {
   RatingCount,
   Star,
 } from "./styled";
+import { selectFetchMoviesGenresStatus, selectMoviesGenres } from "../../moviesSlice";
 
 export const MovieCard = ({ movie }) => {
+  const moviesGenres = useSelector(selectMoviesGenres);
+  const fetchMoviesGenresStatus = useSelector(selectFetchMoviesGenresStatus);
+  console.log(fetchMoviesGenresStatus)
+
   if (!movie) return null;
+  if (fetchMoviesGenresStatus !== "success") return;
 
-  const genreMap = {
-    28: "Action",
-    12: "Adventure",
-    16: "Animation",
-    35: "Comedy",
-    80: "Crime",
-    99: "Documentary",
-    18: "Drama",
-    10751: "Family",
-    14: "Fantasy",
-    36: "History",
-    27: "Horror",
-    10402: "Music",
-    9648: "Mystery",
-    10749: "Romance",
-    878: "Sci-Fi",
-    10770: "TV Movie",
-    53: "Thriller",
-    10752: "War",
-    37: "Western",
-  };
+  const movieGenres = (movie.genre_ids || []).slice(0, 3).map(id => moviesGenres.find(genre => genre.id === id))
 
-  const genres = (movie.genre_ids || [])
-    .slice(0, 3)
-    .map((id) => genreMap[id] || "—");
 
   return (
     <Card>
@@ -57,21 +41,20 @@ export const MovieCard = ({ movie }) => {
       </PosterWrapper>
 
       <Content>
-        <InfoWrapper>
-          <Title>{movie.title}</Title>
-          <Info>{movie.release_date?.slice(0, 4) || "—"}</Info>
-          <GenresWrapper>
-            {genres.map((g, i) => (
-              <GenreTag key={i}>{g}</GenreTag>
-            ))}
-          </GenresWrapper>
-        </InfoWrapper>
-
+      <InfoWrapper>
+        <Title>{movie.title}</Title>
+        <Info>{movie.release_date?.slice(0, 4)}</Info>
+        <GenresWrapper>
+          {movieGenres.map(({ id, name }) => (
+            <GenreTag key={id}>{name}</GenreTag>
+          ))}
+        </GenresWrapper>
         <RatingWrapper>
           <Star />
           <RatingValue>{movie.vote_average?.toFixed(1) ?? "-"}</RatingValue>
           <RatingCount>{movie.vote_count ?? 0} votes</RatingCount>
         </RatingWrapper>
+        <InfoWrapper>
       </Content>
     </Card>
   );
