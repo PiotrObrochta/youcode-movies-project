@@ -1,19 +1,16 @@
-import { Wrapper } from "../../../common/Wrapper";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchPopularMovies } from "../../../api/movies";
 import { MovieCard } from "./MovieCard";
 import LoadingView from "../../../common/LoadingView";
+import { PageWrapper, ContentWrapper, PageTitle, GridWrapper } from "./styled";
 
 export const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadMovies = async () => {
       const data = await fetchPopularMovies();
       setMovies(data);
-      setLoading(false);
     };
     loadMovies();
   }, []);
@@ -21,12 +18,17 @@ export const MoviesPage = () => {
   if (loading) return <LoadingView header={"Movies loading..."}></LoadingView>
   if (!movies.length) return <p>Nic nie znaleziono</p>;
   return (
-    <div>
-      <h1>Popular Movies</h1>
-      <Wrapper body={movies.slice(0, 8).map((m) => (
-        <MovieCard key={m.id} movie={m} />
-      ))} />
-    </div>
+    <PageWrapper>
+      <ContentWrapper>
+        <PageTitle>Popular Movies</PageTitle>
+
+        <GridWrapper>
+          {movies.slice(0, 8).map((m) => (
+            <MovieCard key={m.id} movie={m} />
+          ))}
+        </GridWrapper>
+      </ContentWrapper>
+    </PageWrapper>
   );
 };
 

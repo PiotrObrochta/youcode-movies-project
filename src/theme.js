@@ -8,6 +8,7 @@ export const theme = {
     darkGray: "#7E839A",
   },
   breakpoints: {
-    mobile: 767
-  }
+    mobileMax: "946px",
+    smallWindow: "1440px",
+  },
 };
