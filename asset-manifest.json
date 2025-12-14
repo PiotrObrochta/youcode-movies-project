@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.js": "/youcode-movies-project/static/js/main.e4cd8246.js",
+    "main.js": "/youcode-movies-project/static/js/main.c82ac04c.js",
     "static/media/star.svg": "/youcode-movies-project/static/media/star.9032b005b574c5241b1b344cc97808a5.svg",
     "index.html": "/youcode-movies-project/index.html",
     "static/media/Video.svg": "/youcode-movies-project/static/media/Video.64519bacc48e8f0f2a39675e55643d9b.svg",
     "static/media/Search.svg": "/youcode-movies-project/static/media/Search.ed3f24f20cda9bb4e005406a3f864acb.svg",
-    "main.e4cd8246.js.map": "/youcode-movies-project/static/js/main.e4cd8246.js.map"
+    "static/media/spinner.svg": "/youcode-movies-project/static/media/spinner.c5f29646f52eed97faa98a9f6f43ce08.svg",
+    "main.c82ac04c.js.map": "/youcode-movies-project/static/js/main.c82ac04c.js.map"
   },
   "entrypoints": [
-    "static/js/main.e4cd8246.js"
+    "static/js/main.c82ac04c.js"
   ]
 }
