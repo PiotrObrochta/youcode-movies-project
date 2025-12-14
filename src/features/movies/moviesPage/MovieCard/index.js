@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux";
 import {
   Card,
+  PosterWrapper,
   Poster,
   Content,
+  InfoWrapper,
   Title,
   Info,
   GenresWrapper,
@@ -10,7 +12,7 @@ import {
   RatingWrapper,
   RatingValue,
   RatingCount,
-  PosterWrapper,
+  Star,
 } from "./styled";
 import { selectFetchMoviesGenresStatus, selectMoviesGenres } from "../../moviesSlice";
 
@@ -32,12 +34,14 @@ export const MovieCard = ({ movie }) => {
           src={
             movie.poster_path
               ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-              : "https://via.placeholder.com/500x750?text=No+Image"
+              : "https://via.placeholder.com/292x434?text=No+Image"
           }
           alt={movie.title}
         />
       </PosterWrapper>
+
       <Content>
+      <InfoWrapper>
         <Title>{movie.title}</Title>
         <Info>{movie.release_date?.slice(0, 4)}</Info>
         <GenresWrapper>
@@ -46,10 +50,14 @@ export const MovieCard = ({ movie }) => {
           ))}
         </GenresWrapper>
         <RatingWrapper>
-          <RatingValue>{movie.vote_average?.toFixed(1)}</RatingValue>
-          <RatingCount>({movie.vote_count})</RatingCount>
+          <Star />
+          <RatingValue>{movie.vote_average?.toFixed(1) ?? "-"}</RatingValue>
+          <RatingCount>{movie.vote_count ?? 0} votes</RatingCount>
         </RatingWrapper>
+        <InfoWrapper>
       </Content>
     </Card>
   );
 };
+
+export default MovieCard;
