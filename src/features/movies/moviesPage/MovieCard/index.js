@@ -19,7 +19,7 @@ export const MovieCard = ({ movie }) => {
   const fetchMoviesGeneresStatus = useSelector(selectFetchMoviesGenresStatus);
 
   if (!movie) return null;
-  if (!fetchMoviesGeneresStatus === "success") return;
+  if (fetchMoviesGeneresStatus !== "success") return;
 
   const movieGenres = (movie.genre_ids || []).slice(0, 3).map(id => moviesGenres.find(genre => genre.id === id))
 
