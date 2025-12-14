@@ -4,6 +4,7 @@ import { PageWrapper, ContentWrapper, PageTitle, GridWrapper } from "./styled";
 import { useSelector } from "react-redux";
 import { selectFetchPopularMoviesStatus, selectPopularMovies } from "../moviesSlice";
 import ErrorView from "../../../common/ErrorView";
+import Pagination from "../../../common/Pagination";
 
 export const MoviesPage = () => {
   const movies = useSelector(selectPopularMovies);
@@ -21,6 +22,7 @@ export const MoviesPage = () => {
           <MovieCard key={m.id} movie={m} />
         ))}
         </GridWrapper>
+        <Pagination page={"1"} totalPages={"500"}></Pagination>
       </ContentWrapper>
     </PageWrapper>
   );
