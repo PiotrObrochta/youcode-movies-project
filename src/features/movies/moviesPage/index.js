@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchPopularMovies } from "../../../api/movies";
 import { MovieCard } from "./MovieCard";
+import LoadingView from "../../../common/LoadingView";
 import { PageWrapper, ContentWrapper, PageTitle, GridWrapper } from "./styled";
 
 export const MoviesPage = () => {
@@ -14,6 +15,8 @@ export const MoviesPage = () => {
     loadMovies();
   }, []);
 
+  if (loading) return <LoadingView header={"Movies loading..."}></LoadingView>
+  if (!movies.length) return <p>Nic nie znaleziono</p>;
   return (
     <PageWrapper>
       <ContentWrapper>
