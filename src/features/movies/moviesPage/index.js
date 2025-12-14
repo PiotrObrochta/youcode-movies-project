@@ -15,7 +15,7 @@ export const MoviesPage = () => {
     loadMovies();
   }, []);
 
-  if (loading) return <LoadingView header={"Movies loading..."}></LoadingView>
+  if (false) return <LoadingView header={"Movies loading..."}></LoadingView>
   if (!movies.length) return <p>Nic nie znaleziono</p>;
   return (
     <PageWrapper>
