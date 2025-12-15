@@ -8,17 +8,21 @@ export const Wrapper = styled.header`
   padding: 16px 52px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   @media (max-width: 1024px) {
-    padding: 16px 16px;
-    gap: 20px;
+    padding: 16px;
   }
 
    @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap;
     gap: 16px;
   }
+
+  @media (max-width: 480px) {
+  padding: 12px;
+  gap: 12px;
+}
 `;
 
 export const Left = styled.div`
@@ -43,6 +47,7 @@ export const Title = styled.h1`
   margin: 0;
   display: flex;
   align-items: center;
+  white-space: nowrap;
 
   @media (max-width: 768px) {
     font-size: 20px;
@@ -50,8 +55,9 @@ export const Title = styled.h1`
   }
 
   @media (max-width: 480px) {
-    font-size: 18px;
-  }
+  font-size: 16px;
+  line-height: 18px;
+}
 `;
 
 export const Menu = styled.nav`
@@ -68,6 +74,10 @@ export const Menu = styled.nav`
     margin-left: 0;
     gap: 10px;
   }
+
+  @media (max-width: 480px) {
+  gap: 8px;
+}
 `;
 
 export const MenuLink = styled(NavLink)`
@@ -86,6 +96,11 @@ export const MenuLink = styled(NavLink)`
     padding: 6px 16px;
     font-size: 13px;
   }
+
+  @media (max-width: 480px) {
+  padding: 6px 12px;
+  font-size: 12px;
+}
 `;
 
 export const Right = styled.div`
@@ -138,6 +153,11 @@ export const SearchWrapper = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 100%;
+    width: 100%; 
   }
+
+  @media (max-width: 480px) {
+  height: 44px;
+  padding: 0 16px;
+}
 `;
