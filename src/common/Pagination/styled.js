@@ -9,12 +9,21 @@ export const PaginationWrapper = styled.div`
   align-items: center;
   gap: 24px;
   margin: 56px 0;
+
+  @media (max-width: 480px) {
+    gap: 12px;
+    margin: 32px 0;
+  }
 `;
 
 export const ButtonsGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
+  @media (max-width: 480px) {
+    gap: 4px;
+  }
 `;
 
 export const PaginationButton = styled.button`
@@ -32,7 +41,6 @@ export const PaginationButton = styled.button`
     variant === "primary" ? theme.colors.blueLight : theme.colors.gray};
 
   color: ${({ theme }) => theme.colors.black};
-
 
   font-size: 14px;
   font-weight: 400;
@@ -62,6 +70,8 @@ export const PaginationButton = styled.button`
   }
 
   padding: 8px 12px;
+  height: 24px;
+  font-size: 10px;
 }
 `;
 
@@ -76,6 +86,16 @@ export const PageInfo = styled.div`
   span {
     font-weight: 600;
     color: ${({ theme }) => theme.colors.black};
+  }
+
+  @media (max-width: 480px) {
+    font-size: 10px;
+    line-height: 24px;
+    gap: 4px;
+
+    span {
+      font-weight: 600;
+    }
   }
 `;
 
