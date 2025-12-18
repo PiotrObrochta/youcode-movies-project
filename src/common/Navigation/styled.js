@@ -86,6 +86,9 @@ export const Menu = styled.nav`
 
   @media (max-width: 768px) {
     margin-left: 0;
+    flex-grow: 1;
+    justify-content: flex-end;
+    gap: 16px;
   }
 `;
 
@@ -106,6 +109,7 @@ export const MenuLink = styled(NavLink)`
   @media (max-width: 768px) {
     padding: 6px 16px;
     font-size: 13px;
+    flex-shrink: 0;
   }
 
   @media (max-width: 480px) {
