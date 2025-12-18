@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/youcode-movies-project/static/js/main.77f71e3d.js",
+    "main.js": "/youcode-movies-project/static/js/main.ddefba37.js",
     "static/media/star.svg": "/youcode-movies-project/static/media/star.9032b005b574c5241b1b344cc97808a5.svg",
     "static/media/Danger.svg": "/youcode-movies-project/static/media/Danger.a514e9c64a76d5cf149bdd7443857605.svg",
     "index.html": "/youcode-movies-project/index.html",
@@ -9,9 +9,9 @@
     "static/media/ArrowLeft.svg": "/youcode-movies-project/static/media/ArrowLeft.b3fc0998f1916e9c55bebde8eb17a09e.svg",
     "static/media/Search.svg": "/youcode-movies-project/static/media/Search.ed3f24f20cda9bb4e005406a3f864acb.svg",
     "static/media/spinner.svg": "/youcode-movies-project/static/media/spinner.c5f29646f52eed97faa98a9f6f43ce08.svg",
-    "main.77f71e3d.js.map": "/youcode-movies-project/static/js/main.77f71e3d.js.map"
+    "main.ddefba37.js.map": "/youcode-movies-project/static/js/main.ddefba37.js.map"
   },
   "entrypoints": [
-    "static/js/main.77f71e3d.js"
+    "static/js/main.ddefba37.js"
   ]
 }
