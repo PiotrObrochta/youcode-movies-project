@@ -5,7 +5,16 @@ import {
   selectPopularPeople,
   selectFetchPopularPeopleStatus,
 } from "../peopleSlice";
-import { Wrapper, Title, PeopleGrid, PersonTile, Photo, Name } from "./styled";
+// import { Link } from "react-router-dom";  ( jak będzie juz strona o aktorze, to usunąc komentarz )
+import {
+  Wrapper,
+  Title,
+  PeopleGrid,
+  PersonTile,
+  Photo,
+  Name,
+  PhotoWrapper,
+} from "./styled";
 
 export const PeoplePage = () => {
   const dispatch = useDispatch();
@@ -21,24 +30,27 @@ export const PeoplePage = () => {
 
   return (
     <Wrapper>
-      <Title>Popular people</Title>
-
+      <Title>Popular People</Title>
       <PeopleGrid>
-        {people.map((person) => {
-          console.log(person); // <- sprawdź, czy jest person.name
-          return (
-            <PersonTile key={person.id}>
+        {people.map((person) => (
+          <PersonTile
+            key={person.id}
+            // as={Link}
+            // to={`/person/${person.id}`} <- przygotowane pod przyszłą stronę o aktorze
+          >
+            <PhotoWrapper>
               <Photo
                 src={
                   person.profile_path
                     ? `https://image.tmdb.org/t/p/w185${person.profile_path}`
                     : "/assets/no-profile.png"
                 }
+                alt={person.name}
               />
-              <Name>{person.name}</Name>
-            </PersonTile>
-          );
-        })}
+            </PhotoWrapper>
+            <Name>{person.name}</Name>
+          </PersonTile>
+        ))}
       </PeopleGrid>
     </Wrapper>
   );
