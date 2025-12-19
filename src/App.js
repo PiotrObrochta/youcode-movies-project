@@ -1,14 +1,20 @@
 import Navigation from "./common/Navigation";
 import MoviesPage from "./features/movies/moviesPage";
+import PeoplePage from "./features/popularPeople/PeoplePage";
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 
 function App() {
   return (
     <HashRouter>
       <Navigation />
+
       <Switch>
         <Route path="/movies">
           <MoviesPage />
+        </Route>
+
+        <Route path="/people">
+          <PeoplePage />
         </Route>
 
         <Route path="/">
