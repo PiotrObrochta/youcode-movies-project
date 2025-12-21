@@ -11,9 +11,16 @@ export const Hero = styled.div`
 
 export const BackdropWrapper = styled.div`
     position: relative;
-    max-width: fit-content;
+    max-width: 1368px;
     height: 100%;
     margin: auto;
+    background-image: url(${({ $backdropURL }) => $backdropURL});
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: end;
 
     &::before,
     &::after {
@@ -43,6 +50,24 @@ export const BackdropWrapper = styled.div`
       rgba(0, 0, 0, 0)
     );
   }
+`
+
+export const HeroContent = styled.div`
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: start;
+    justify-content: end;
+    flex-direction: column;
+    margin-bottom: 56px;
+`
+
+export const Header = styled.h1`
+    color: #fff;
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 120%;
+    margin: 24px 0px;
 `
 
 export const Backdrop = styled.img`
