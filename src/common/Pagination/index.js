@@ -15,7 +15,8 @@ const Pagination = ({ page, totalPages }) => {
     <PaginationWrapper>
 
       <ButtonsGroup>
-        <PaginationButton disabled={isFirstPage}>
+        <PaginationButton disabled={isFirstPage} doubleOnMobile>
+
           <ArrowLeftIcon className="single" />
 
           <div className="double">
@@ -28,7 +29,7 @@ const Pagination = ({ page, totalPages }) => {
 
         <PaginationButton disabled={isFirstPage}>
           <ArrowLeftIcon className="single" />
-          
+
           <div className="double">
             <ArrowLeftIcon />
             <ArrowLeftIcon />
@@ -54,7 +55,8 @@ const Pagination = ({ page, totalPages }) => {
 
         </PaginationButton>
 
-        <PaginationButton variant="primary" disabled={isLastPage}>
+        <PaginationButton variant="primary" disabled={isLastPage} doubleOnMobile>
+
           <span>Last</span>
 
           <ArrowRightIcon className="single" />

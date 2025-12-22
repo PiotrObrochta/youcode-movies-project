@@ -9,12 +9,21 @@ export const PaginationWrapper = styled.div`
   align-items: center;
   gap: 24px;
   margin: 56px 0;
+
+  @media (max-width: 480px) {
+    gap: 12px;
+    margin: 32px 0;
+  }
 `;
 
 export const ButtonsGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
+  @media (max-width: 480px) {
+    gap: 4px;
+  }
 `;
 
 export const PaginationButton = styled.button`
@@ -31,8 +40,7 @@ export const PaginationButton = styled.button`
   background-color: ${({ theme, variant }) =>
     variant === "primary" ? theme.colors.blueLight : theme.colors.gray};
 
-  color: ${({ theme, variant }) =>
-    variant === "primary" ? theme.colors.blue : theme.colors.darkGray};
+  color: ${({ theme }) => theme.colors.black};
 
   font-size: 14px;
   font-weight: 400;
@@ -44,26 +52,27 @@ export const PaginationButton = styled.button`
     align-items: center;
   }
 
-  @media (max-width: 480px) {
-    span {
-      display: none;
-    }
-
-    .single {
-      display: none;
-    }
-
-    .double {
-      display: flex;
-    }
-
-    padding: 8px 12px;
+@media (max-width: 480px) {
+  span {
+    display: none;
   }
 
-  &:disabled {
-    opacity: 0.6;
-    cursor: default;
+  .single {
+    display: ${({ doubleOnMobile }) =>
+    doubleOnMobile ? "none" : "inline-flex"};
   }
+
+  .double {
+    display: ${({ doubleOnMobile }) =>
+    doubleOnMobile ? "flex" : "none"};
+    gap: 4px;
+    align-items: center;
+  }
+
+  padding: 8px 12px;
+  height: 24px;
+  font-size: 10px;
+}
 `;
 
 export const PageInfo = styled.div`
@@ -78,16 +87,26 @@ export const PageInfo = styled.div`
     font-weight: 600;
     color: ${({ theme }) => theme.colors.black};
   }
+
+  @media (max-width: 480px) {
+    font-size: 10px;
+    line-height: 24px;
+    gap: 4px;
+
+    span {
+      font-weight: 600;
+    }
+  }
 `;
 
 export const ArrowLeftIcon = styled(ArrowLeft)`
   width: 7px;
   height: 11px;
-  stroke: currentColor; 
+  color: ${({ theme }) => theme.colors.darkGray};
 `;
 
 export const ArrowRightIcon = styled(ArrowRight)`
   width: 7px;
   height: 11px;
-  stroke: currentColor;
+  color: ${({ theme }) => theme.colors.blue};
 `;
