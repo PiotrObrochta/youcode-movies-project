@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import styled, { css } from "styled-components";
 
 
@@ -8,6 +9,7 @@ export const Wrapper = styled.div`
     text-align: center;
     max-width: 258px;
     width: 100%;
+    color: #000;
     display: grid;
     align-items: start;
     grid-template-rows: auto auto 1fr;
@@ -64,4 +66,8 @@ export const Text = styled.p`
             align-self: flex-end;
     `}
     }
+`
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
 `
