@@ -9,4 +9,9 @@ export const Star = styled(StarIcon)`
         width: 24px;
         height: 24px;
     `}
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
+        width: 16px;
+        height: 16px;
+    }
 `

@@ -7,6 +7,16 @@ export const Hero = styled.div`
     text-align: center;
     overflow: hidden;
     position:relative;
+    padding: 0px 20px;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
+        height: 270px;
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
+        height: 170px;
+        padding: 0px 16px;
+    }
 `
 
 export const BackdropWrapper = styled.div`
@@ -21,35 +31,22 @@ export const BackdropWrapper = styled.div`
     flex-direction: column;
     align-items: start;
     justify-content: end;
+    box-shadow: 
+        inset 0 0 20px 20px rgba(0, 0, 0, 1),
+        inset 0 0 10px 10px rgba(0, 0, 0, 1);
 
-    &::before,
-    &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 20%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-  }
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
+        box-shadow: 
+            inset 0 0 40px 10px rgba(0, 0, 0, 1),
+            inset 0 0 10px 5px rgba(0, 0, 0, 1);
+    }
 
-    &::before {
-        left: 0;
-        background: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 1),
-        rgba(0, 0, 0, 0)
-    );
-  }
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
+        box-shadow: 
+            inset 0 0 20px 5px rgba(0, 0, 0, 0.7),
+            inset 0 0 10px 5px rgba(0, 0, 0, 1);
+    }
 
-  &::after {
-    right: 0;
-    background: linear-gradient(
-      to left,
-      rgba(0, 0, 0, 1),
-      rgba(0, 0, 0, 0)
-    );
-  }
 `
 
 export const HeroContent = styled.div`
@@ -60,6 +57,10 @@ export const HeroContent = styled.div`
     justify-content: end;
     flex-direction: column;
     margin-bottom: 56px;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
+        margin-bottom: 8px;
+    }
 `
 
 export const Header = styled.h1`
@@ -68,6 +69,12 @@ export const Header = styled.h1`
     font-weight: 600;
     line-height: 120%;
     margin: 24px 0px;
+    text-align: left;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
+        font-size: 24px;
+        margin: 4px 0px;
+    }
 `
 
 export const Backdrop = styled.img`

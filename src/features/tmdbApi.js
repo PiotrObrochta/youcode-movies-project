@@ -42,3 +42,15 @@ export const fetchMovieData = async (id) => {
     return await response.json();
 };
 
+export const fetchMovieCredits = async (id) => {
+    const endpoint = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}`;
+
+    const response = await fetch(endpoint);
+
+    if (!response.ok) {
+        throw new Error("Fetching movies failed");
+    }
+
+    return await response.json();
+}
+
