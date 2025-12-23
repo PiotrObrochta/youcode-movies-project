@@ -31,10 +31,35 @@ export const PageTitle = styled.h1`
 
 export const PeopleGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 208px);
-  grid-auto-rows: 339px;
   gap: 24px;
-  justify-content: space-between;
+  justify-content: start;
+
+  grid-template-columns: repeat(6, 208px);
+
+  @media (max-width: 1440px) {
+    grid-template-columns: repeat(5, 208px);
+  }
+
+  @media (max-width: 1175px) {
+    grid-template-columns: repeat(4, 208px);
+  }
+
+  @media (max-width: 949px) {
+    grid-template-columns: repeat(5, 136px);
+    gap: 16px;
+  }
+
+  @media (max-width: 792px) {
+    grid-template-columns: repeat(4, 136px);
+  }
+
+  @media (max-width: 635px) {
+    grid-template-columns: repeat(3, 136px);
+  }
+
+  @media (max-width: 489px) {
+    grid-template-columns: repeat(2, 136px);
+  }
 `;
 
 export const PersonTile = styled.div`
@@ -53,6 +78,11 @@ export const PersonTile = styled.div`
   &:hover {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.24);
   }
+
+  @media (max-width: 949px) {
+    width: 136px;
+    height: 245px;
+  }
 `;
 
 export const PhotoWrapper = styled.div`
@@ -61,6 +91,12 @@ export const PhotoWrapper = styled.div`
   margin: 16px 16px 0 16px;
   border-radius: 6px;
   overflow: hidden;
+
+  @media (max-width: 949px) {
+    width: 120px;
+    height: 178px;
+    margin: 8px;
+  }
 `;
 
 export const Photo = styled.img`
@@ -84,4 +120,11 @@ export const Name = styled.p`
   line-height: 130%;
   text-align: center;
   color: ${({ theme }) => theme.colors.black};
+
+  @media (max-width: 949px) {
+    width: 120px;
+    font-size: 14px;
+    margin: 8px;
+    height: auto;
+  }
 `;
