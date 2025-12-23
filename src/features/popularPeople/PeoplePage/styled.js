@@ -1,16 +1,32 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  width: 1368px;
-  margin: 0 auto;
-  padding: 40px 20px;
+export const PageWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
 `;
 
-export const Title = styled.h1`
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
+export const ContentWrapper = styled.div`
+  width: 100%;
+  max-width: 1368px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const PageTitle = styled.h1`
   font-size: 36px;
-  margin-bottom: 32px;
+  font-weight: 600;
+  line-height: 120%;
+  color: ${({ theme }) => theme.colors.black};
+  margin: 24px 0;
+  text-align: left;
+
+  @media (max-width: 767px) {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
 `;
 
 export const PeopleGrid = styled.div`
@@ -18,12 +34,13 @@ export const PeopleGrid = styled.div`
   grid-template-columns: repeat(6, 208px);
   grid-auto-rows: 339px;
   gap: 24px;
+  justify-content: space-between;
 `;
 
 export const PersonTile = styled.div`
   width: 208px;
   height: 339px;
-  background: #fff;
+  background: ${({ theme }) => theme.colors.white};
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -31,9 +48,11 @@ export const PersonTile = styled.div`
   align-items: center;
   overflow: hidden;
   cursor: pointer;
-  text-decoration: none;
-  color: inherit;
   transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.24);
+  }
 `;
 
 export const PhotoWrapper = styled.div`
@@ -58,11 +77,11 @@ export const Photo = styled.img`
 export const Name = styled.p`
   width: 176px;
   height: 58px;
-  margin: 16px 16px 16px 16px;
+  margin: 16px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 22px;
   line-height: 130%;
   text-align: center;
-  color: #000;
+  color: ${({ theme }) => theme.colors.black};
 `;
