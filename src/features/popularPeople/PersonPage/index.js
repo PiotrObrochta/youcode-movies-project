@@ -78,7 +78,9 @@ const PersonPage = () => {
                             </MetaRow>
                         </MetaGroup>
 
-                        <Biography>{person.biography || "No biography available."}</Biography>
+                        <Biography $overview>
+                            {person.biography || "No biography available."}
+                        </Biography>
                     </ProfileDetails>
                 </DesktopHeader>
 
@@ -119,7 +121,7 @@ const PersonPage = () => {
                     ))}
                 </GridWrapper>
             </MoviesSection>
-            
+
             <MoviesSection>
                 <SectionTitle>Movies – crew ({crew.length})</SectionTitle>
                 <GridWrapper>
