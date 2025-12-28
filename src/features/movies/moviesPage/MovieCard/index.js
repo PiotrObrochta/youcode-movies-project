@@ -13,6 +13,7 @@ import {
   RatingValue,
   RatingCount,
   Star,
+  StyledLink,
 } from "./styled";
 import {
   selectFetchMoviesGenresStatus,
@@ -32,17 +33,18 @@ export const MovieCard = ({ movie, mode }) => {
     .map((id) => moviesGenres.find((genre) => genre.id === id));
 
   return (
-    <Card>
-      <PosterWrapper>
-        <Poster
-          src={
-            movie.poster_path
-              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-              : "https://via.placeholder.com/292x434?text=No+Image"
-          }
-          alt={movie.title}
-        />
-      </PosterWrapper>
+    <StyledLink to={`/movie/${movie.id}`}>
+      <Card>
+        <PosterWrapper>
+          <Poster
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                : "https://via.placeholder.com/292x434?text=No+Image"
+            }
+            alt={movie.title}
+          />
+        </PosterWrapper>
 
       <Content>
         <InfoWrapper>
