@@ -76,7 +76,7 @@ export const PersonTile = styled.div`
   transition: box-shadow 0.3s ease;
 
   &:hover {
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
   }
 
   @media (max-width: 949px) {

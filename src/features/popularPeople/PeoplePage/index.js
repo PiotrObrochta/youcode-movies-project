@@ -5,9 +5,10 @@ import {
   selectPopularPeople,
   selectFetchPopularPeopleStatus,
 } from "../peopleSlice";
-// import { Link } from "react-router-dom";  ( jak będzie juz strona o aktorze, to usunąc komentarz )
+// import { Link } from "react-router-dom";  // ← na przyszłość
 
 import LoadingView from "../../../common/LoadingView";
+import Pagination from "../../../common/Pagination";
 
 import {
   PageWrapper,
@@ -43,11 +44,11 @@ export const PeoplePage = () => {
         <PageTitle>Popular People</PageTitle>
 
         <PeopleGrid>
-          {people.map((person) => (
+          {people.slice(0, 24).map((person) => (
             <PersonTile
               key={person.id}
               // as={Link}
-              // to={`/person/${person.id}`} <- przygotowane pod przyszłą stronę o aktorze
+              // to={`/person/${person.id}`} // przygotowane pod przyszłą stronę
             >
               <PhotoWrapper>
                 <Photo
@@ -63,6 +64,7 @@ export const PeoplePage = () => {
             </PersonTile>
           ))}
         </PeopleGrid>
+        <Pagination page={"1"} totalPages={"500"} />
       </ContentWrapper>
     </PageWrapper>
   );

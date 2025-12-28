@@ -13,6 +13,11 @@ export const Card = styled.div`
   position: relative;
   padding: 16px;
   cursor: pointer;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.smallWindow}) {
     width: 100%;
