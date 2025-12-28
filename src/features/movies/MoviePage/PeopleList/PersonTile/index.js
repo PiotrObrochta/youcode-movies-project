@@ -5,7 +5,7 @@ const PersonTile = ({ person }) => {
     const profilePath = `https://image.tmdb.org/t/p/w185/${person.profile_path}`;
 
     return (
-        <StyledLink to={`/person/${person.id}`}>
+        <StyledLink to={`/people/${person.id}`}>
             <Wrapper>
                 <ProfileWrapper>
                     <Profile src={profilePath} alt="profile" onError={(event) => { event.currentTarget.src = profilePlaceholder }}></Profile>
