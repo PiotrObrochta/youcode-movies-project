@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
     display: grid;
     align-items: start;
     grid-template-rows: auto auto 1fr;
+    height: 100%;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
         padding: 8px;
@@ -24,6 +25,7 @@ export const Wrapper = styled.div`
 export const ProfileWrapper = styled.div`
     height: 231px;
     width: 100%;
+    
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
         height: 178px;
