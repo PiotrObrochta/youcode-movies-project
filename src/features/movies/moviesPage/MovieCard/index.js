@@ -20,7 +20,7 @@ import {
   selectMoviesGenres,
 } from "../../moviesSlice";
 
-export const MovieCard = ({ movie }) => {
+export const MovieCard = ({ movie, mode }) => {
   const moviesGenres = useSelector(selectMoviesGenres);
   const fetchMoviesGenresStatus = useSelector(selectFetchMoviesGenresStatus);
   console.log(fetchMoviesGenresStatus);
@@ -46,24 +46,44 @@ export const MovieCard = ({ movie }) => {
           />
         </PosterWrapper>
 
-        <Content>
-          <InfoWrapper>
-            <Title>{movie.title}</Title>
+      <Content>
+        <InfoWrapper>
+          <Title>{movie.title}</Title>
+          {mode === "cast" && movie.character && (
+            <Info>
+              as {movie.character}
+              {movie.release_date && ` (${movie.release_date.slice(0, 4)})`}
+            </Info>
+          )}
+
+          {mode === "crew" && (movie.job || movie.release_date) && (
+            <Info>
+              {movie.job && `${movie.job} `}
+              {movie.release_date && `(${movie.release_date.slice(0, 4)})`}
+            </Info>
+          )}
+
+
+          {!mode && (
             <Info>{movie.release_date?.slice(0, 4)}</Info>
-            <GenresWrapper>
-              {movieGenres.map(({ id, name }) => (
-                <GenreTag key={id}>{name}</GenreTag>
-              ))}
-            </GenresWrapper>
-          </InfoWrapper>
-          <RatingWrapper>
-            <Star />
-            <RatingValue>{movie.vote_average?.toFixed(1) ?? "-"}</RatingValue>
-            <RatingCount>{movie.vote_count ?? 0} votes</RatingCount>
-          </RatingWrapper>
-        </Content>
-      </Card>
-    </StyledLink>
+          )}
+          <GenresWrapper>
+            {movieGenres.map(({ id, name }) => (
+              <GenreTag key={id}>{name}</GenreTag>
+            ))}
+          </GenresWrapper>
+        </InfoWrapper>
+        <RatingWrapper>
+          <Star />
+          <RatingValue>
+            {movie.vote_average
+              ? movie.vote_average.toFixed(1).replace(".", ",")
+              : "-"}
+          </RatingValue>
+          <RatingCount>{movie.vote_count ?? 0} votes</RatingCount>
+        </RatingWrapper>
+      </Content>
+    </Card>
   );
 };
 

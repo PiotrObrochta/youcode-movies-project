@@ -54,3 +54,35 @@ export const fetchMovieCredits = async (id) => {
     return await response.json();
 }
 
+export const getPersonDetails = async (personId) => {
+    const apiKey = "a85fbe514b26d45ce26b9e97d6b6977c";
+
+    const endpoint = `https://api.themoviedb.org/3/person/${personId}?api_key=${apiKey}&language=en-US`
+
+    const response = await fetch(endpoint);
+
+    if (!response.ok) {
+        throw new Error("Fetching person details failed");
+    }
+
+    return await response.json();
+};
+
+export const getPersonMovieCredits = async (personId) => {
+    const apiKey = "a85fbe514b26d45ce26b9e97d6b6977c";
+
+    const endpoint = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${apiKey}&language=en-US`;
+
+    const response = await fetch(endpoint);
+
+    if (!response.ok) {
+        throw new Error("Fetching person movie credits failed");
+    }
+
+    const result = await response.json();
+
+    return {
+        cast: result.cast || [],
+        crew: result.crew || [],
+    };
+};
