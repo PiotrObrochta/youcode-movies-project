@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ReactComponent as StarIcon } from "../../../../assets/star.svg";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export const Card = styled.div`
   width: 324px;
@@ -192,3 +193,7 @@ export const Star = styled(StarIcon)`
     height: 16px;
   }
 `;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+`
