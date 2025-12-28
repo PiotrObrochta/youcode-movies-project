@@ -1,5 +1,7 @@
 import {
     Wrapper,
+    HeaderContainer,
+    HeaderBackground,
     LogoLink,
     Title,
     Menu,
@@ -13,24 +15,28 @@ import {
 import { ReactComponent as SearchIcon } from "../../assets/icons/Search.svg";
 
 const Navigation = () => (
-    <Wrapper>
-        <LogoLink to="/movies">
-            <CameraIconStyled />
-            <Title>Movies Browser</Title>
-        </LogoLink>
+    <HeaderBackground>
+        <HeaderContainer>
+            <Wrapper>
+                <LogoLink to="/movies">
+                    <CameraIconStyled />
+                    <Title>Movies Browser</Title>
+                </LogoLink>
 
-        <Menu>
-            <MenuLink to="/movies" >MOVIES</MenuLink>
-            <MenuLink to="/people" >PEOPLE</MenuLink>
-        </Menu>
+                <Menu>
+                    <MenuLink to="/movies" >MOVIES</MenuLink>
+                    <MenuLink to="/people" >PEOPLE</MenuLink>
+                </Menu>
 
-        <Right>
-            <SearchWrapper>
-                <SearchIcon />
-                <SearchInput placeholder="Search for movies..." />
-            </SearchWrapper>
-        </Right>
-    </Wrapper>
+                <Right>
+                    <SearchWrapper>
+                        <SearchIcon />
+                        <SearchInput placeholder="Search for movies..." />
+                    </SearchWrapper>
+                </Right>
+            </Wrapper>
+        </HeaderContainer>
+    </HeaderBackground>
 );
 
 export default Navigation;
