@@ -8,14 +8,14 @@ function App() {
     <HashRouter>
       <Navigation />
       <Switch>
-        <Route path="/homepage">
+        <Route path="/movies">
           <MoviesPage />
         </Route>
         <Route path="/movie/:id">
           <MoviePage />
         </Route>
         <Route path="/">
-          <Redirect to="/homepage" />
+          <Redirect to="/movies" />
         </Route>
       </Switch>
     </HashRouter>

@@ -1,17 +1,27 @@
-import { Wrapper, Left, Title, Menu, MenuLink, Right, SearchWrapper, SearchInput } from "./styled";
-import { ReactComponent as CameraIconStyled } from "../../assets/icons/Video.svg";
+import {
+    Wrapper,
+    LogoLink,
+    Title,
+    Menu,
+    MenuLink,
+    Right,
+    SearchWrapper,
+    SearchInput,
+    CameraIconStyled,
+} from "./styled";
+
 import { ReactComponent as SearchIcon } from "../../assets/icons/Search.svg";
 
 const Navigation = () => (
     <Wrapper>
-        <Left>
+        <LogoLink to="/movies">
             <CameraIconStyled />
             <Title>Movies Browser</Title>
-        </Left>
+        </LogoLink>
 
         <Menu>
-            <MenuLink to="/movies">MOVIES</MenuLink>
-            <MenuLink to="/people">PEOPLE</MenuLink>
+            <MenuLink to="/movies" end={false}>MOVIES</MenuLink>
+            <MenuLink to="/people" end={false}>PEOPLE</MenuLink>
         </Menu>
 
         <Right>

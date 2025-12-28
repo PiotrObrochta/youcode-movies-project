@@ -15,18 +15,22 @@ import {
   Star,
   StyledLink,
 } from "./styled";
-import { selectFetchMoviesGenresStatus, selectMoviesGenres } from "../../moviesSlice";
+import {
+  selectFetchMoviesGenresStatus,
+  selectMoviesGenres,
+} from "../../moviesSlice";
 
 export const MovieCard = ({ movie }) => {
   const moviesGenres = useSelector(selectMoviesGenres);
   const fetchMoviesGenresStatus = useSelector(selectFetchMoviesGenresStatus);
-  console.log(fetchMoviesGenresStatus)
+  console.log(fetchMoviesGenresStatus);
 
   if (!movie) return null;
   if (fetchMoviesGenresStatus !== "success") return;
 
-  const movieGenres = (movie.genre_ids || []).slice(0, 3).map(id => moviesGenres.find(genre => genre.id === id))
-
+  const movieGenres = (movie.genre_ids || [])
+    .slice(0, 3)
+    .map((id) => moviesGenres.find((genre) => genre.id === id));
 
   return (
     <StyledLink to={`/movie/${movie.id}`}>
