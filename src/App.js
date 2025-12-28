@@ -1,4 +1,5 @@
 import Navigation from "./common/Navigation";
+import MoviePage from "./features/movies/MoviePage";
 import MoviesPage from "./features/movies/moviesPage";
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 
@@ -10,7 +11,9 @@ function App() {
         <Route path="/movies">
           <MoviesPage />
         </Route>
-
+        <Route path="/movie/:id">
+          <MoviePage />
+        </Route>
         <Route path="/">
           <Redirect to="/movies" />
         </Route>
