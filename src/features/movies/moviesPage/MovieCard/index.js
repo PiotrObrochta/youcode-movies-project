@@ -19,7 +19,7 @@ import {
   selectMoviesGenres,
 } from "../../moviesSlice";
 
-export const MovieCard = ({ movie }) => {
+export const MovieCard = ({ movie, mode }) => {
   const moviesGenres = useSelector(selectMoviesGenres);
   const fetchMoviesGenresStatus = useSelector(selectFetchMoviesGenresStatus);
   console.log(fetchMoviesGenresStatus);
@@ -47,7 +47,24 @@ export const MovieCard = ({ movie }) => {
       <Content>
         <InfoWrapper>
           <Title>{movie.title}</Title>
-          <Info>{movie.release_date?.slice(0, 4)}</Info>
+          {mode === "cast" && movie.character && (
+            <Info>
+              as {movie.character}
+              {movie.release_date && ` (${movie.release_date.slice(0, 4)})`}
+            </Info>
+          )}
+
+          {mode === "crew" && (movie.job || movie.release_date) && (
+            <Info>
+              {movie.job && `${movie.job} `}
+              {movie.release_date && `(${movie.release_date.slice(0, 4)})`}
+            </Info>
+          )}
+
+
+          {!mode && (
+            <Info>{movie.release_date?.slice(0, 4)}</Info>
+          )}
           <GenresWrapper>
             {movieGenres.map(({ id, name }) => (
               <GenreTag key={id}>{name}</GenreTag>
