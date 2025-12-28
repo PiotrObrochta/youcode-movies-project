@@ -15,7 +15,7 @@ const Pagination = ({ page, totalPages }) => {
     <PaginationWrapper>
 
       <ButtonsGroup>
-        <PaginationButton disabled={isFirstPage} doubleOnMobile>
+        <PaginationButton disabled={isFirstPage} $doubleOnMobile>
 
           <ArrowLeftIcon className="single" />
 
@@ -44,7 +44,7 @@ const Pagination = ({ page, totalPages }) => {
       </PageInfo>
 
       <ButtonsGroup>
-        <PaginationButton variant="primary" disabled={isLastPage}>
+        <PaginationButton $variant="primary" disabled={isLastPage}>
           <span>Next</span>
           <ArrowRightIcon className="single" />
 
@@ -55,7 +55,7 @@ const Pagination = ({ page, totalPages }) => {
 
         </PaginationButton>
 
-        <PaginationButton variant="primary" disabled={isLastPage} doubleOnMobile>
+        <PaginationButton $variant="primary" disabled={isLastPage} $doubleOnMobile>
 
           <span>Last</span>
 

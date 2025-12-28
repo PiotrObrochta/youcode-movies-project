@@ -37,8 +37,8 @@ export const PaginationButton = styled.button`
   border-radius: 5px;
   border: 1px solid transparent;
 
-  background-color: ${({ theme, variant }) =>
-    variant === "primary" ? theme.colors.blueLight : theme.colors.gray};
+  background-color: ${({ theme, $variant }) =>
+    $variant === "primary" ? theme.colors.blueLight : theme.colors.gray};
 
   color: ${({ theme }) => theme.colors.black};
 
@@ -58,13 +58,13 @@ export const PaginationButton = styled.button`
   }
 
   .single {
-    display: ${({ doubleOnMobile }) =>
-    doubleOnMobile ? "none" : "inline-flex"};
+    display: ${({ $doubleOnMobile }) =>
+    $doubleOnMobile ? "none" : "inline-flex"};
   }
 
   .double {
-    display: ${({ doubleOnMobile }) =>
-    doubleOnMobile ? "flex" : "none"};
+    display: ${({ $doubleOnMobile }) =>
+    $doubleOnMobile ? "flex" : "none"};
     gap: 4px;
     align-items: center;
   }

@@ -20,8 +20,8 @@ const Navigation = () => (
         </LogoLink>
 
         <Menu>
-            <MenuLink to="/movies" end={false}>MOVIES</MenuLink>
-            <MenuLink to="/people" end={false}>PEOPLE</MenuLink>
+            <MenuLink to="/movies" >MOVIES</MenuLink>
+            <MenuLink to="/people" >PEOPLE</MenuLink>
         </Menu>
 
         <Right>

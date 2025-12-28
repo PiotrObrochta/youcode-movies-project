@@ -5,6 +5,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 export const Card = styled.div`
   width: 324px;
   min-height: 650px;
+  height: 100%;
   background: ${({ theme }) => theme.colors.white};
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
