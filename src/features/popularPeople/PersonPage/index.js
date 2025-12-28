@@ -21,6 +21,7 @@ import {
     TopRow,
     MetaColumn,
 } from "./styled";
+import { PosterFallbackScope } from "./styled";
 
 const formatDate = (date) => {
     if (!date) return "—";
@@ -115,20 +116,32 @@ const PersonPage = () => {
 
             <MoviesSection>
                 <SectionTitle>Movies – cast ({cast.length})</SectionTitle>
-                <GridWrapper>
-                    {cast.map((movie) => (
-                        <MovieCard key={movie.credit_id} movie={movie} mode="cast" />
-                    ))}
-                </GridWrapper>
+                <PosterFallbackScope>
+                    <GridWrapper>
+                        {cast.map((movie) => (
+                            <MovieCard
+                                key={movie.credit_id}
+                                movie={movie}
+                                mode="cast"
+                            />
+                        ))}
+                    </GridWrapper>
+                </PosterFallbackScope>
             </MoviesSection>
 
             <MoviesSection>
                 <SectionTitle>Movies – crew ({crew.length})</SectionTitle>
-                <GridWrapper>
-                    {crew.map((movie) => (
-                        <MovieCard key={movie.credit_id} movie={movie} mode="crew" />
-                    ))}
-                </GridWrapper>
+                <PosterFallbackScope>
+                    <GridWrapper>
+                        {crew.map((movie) => (
+                            <MovieCard
+                                key={movie.credit_id}
+                                movie={movie}
+                                mode="crew"
+                            />
+                        ))}
+                    </GridWrapper>
+                </PosterFallbackScope>
             </MoviesSection>
         </Wrapper>
     );
