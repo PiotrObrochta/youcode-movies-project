@@ -5,7 +5,6 @@ import {
   selectPopularPeople,
   selectFetchPopularPeopleStatus,
 } from "../peopleSlice";
-// import { Link } from "react-router-dom";  // ← na przyszłość
 
 import LoadingView from "../../../common/LoadingView";
 import Pagination from "../../../common/Pagination";
@@ -20,6 +19,7 @@ import {
   Name,
   PhotoWrapper,
 } from "./styled";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export const PeoplePage = () => {
   const dispatch = useDispatch();
@@ -47,8 +47,8 @@ export const PeoplePage = () => {
           {people.slice(0, 24).map((person) => (
             <PersonTile
               key={person.id}
-              // as={Link}
-              // to={`/person/${person.id}`} // przygotowane pod przyszłą stronę
+              as={Link}
+              to={`/people/${person.id}`} // przygotowane pod przyszłą stronę
             >
               <PhotoWrapper>
                 <Photo
