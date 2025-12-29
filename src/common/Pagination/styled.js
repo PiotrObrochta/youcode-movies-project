@@ -10,7 +10,7 @@ export const PaginationWrapper = styled.div`
   gap: 24px;
   margin: 56px 0;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
     gap: 12px;
     margin: 32px 0;
   }
@@ -21,7 +21,7 @@ export const ButtonsGroup = styled.div`
   align-items: center;
   gap: 8px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
     gap: 4px;
   }
 `;
@@ -52,7 +52,7 @@ export const PaginationButton = styled.button`
     align-items: center;
   }
 
-@media (max-width: 480px) {
+@media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
   span {
     display: none;
   }
@@ -88,7 +88,7 @@ export const PageInfo = styled.div`
     color: ${({ theme }) => theme.colors.black};
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     font-size: 10px;
     line-height: 24px;
     gap: 4px;
