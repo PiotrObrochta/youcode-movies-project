@@ -6,35 +6,41 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon,
 } from "./styled";
+import { useHistory } from "react-router-dom";
 
 const Pagination = ({ page, totalPages }) => {
+  const history = useHistory();
+
+  const goToPage = (p) => history.push(`/movies?page=${p}`);
+
   const isFirstPage = page === 1;
   const isLastPage = page === totalPages;
 
   return (
     <PaginationWrapper>
-
       <ButtonsGroup>
-        <PaginationButton disabled={isFirstPage} $doubleOnMobile>
-
+        <PaginationButton
+          disabled={isFirstPage}
+          onClick={() => goToPage(1)}
+          $doubleOnMobile
+        >
           <ArrowLeftIcon className="single" />
-
           <div className="double">
             <ArrowLeftIcon />
             <ArrowLeftIcon />
           </div>
-
           <span>First</span>
         </PaginationButton>
 
-        <PaginationButton disabled={isFirstPage}>
+        <PaginationButton
+          disabled={isFirstPage}
+          onClick={() => goToPage(page - 1)}
+        >
           <ArrowLeftIcon className="single" />
-
           <div className="double">
             <ArrowLeftIcon />
             <ArrowLeftIcon />
           </div>
-
           <span>Previous</span>
         </PaginationButton>
       </ButtonsGroup>
@@ -44,31 +50,33 @@ const Pagination = ({ page, totalPages }) => {
       </PageInfo>
 
       <ButtonsGroup>
-        <PaginationButton $variant="primary" disabled={isLastPage}>
+        <PaginationButton
+          $variant="primary"
+          disabled={isLastPage}
+          onClick={() => goToPage(page + 1)}
+        >
           <span>Next</span>
           <ArrowRightIcon className="single" />
-
           <div className="double">
             <ArrowRightIcon />
             <ArrowRightIcon />
           </div>
-
         </PaginationButton>
 
-        <PaginationButton $variant="primary" disabled={isLastPage} $doubleOnMobile>
-
+        <PaginationButton
+          $variant="primary"
+          disabled={isLastPage}
+          onClick={() => goToPage(totalPages)}
+          $doubleOnMobile
+        >
           <span>Last</span>
-
           <ArrowRightIcon className="single" />
-
           <div className="double">
             <ArrowRightIcon />
             <ArrowRightIcon />
           </div>
-
         </PaginationButton>
       </ButtonsGroup>
-
     </PaginationWrapper>
   );
 };
