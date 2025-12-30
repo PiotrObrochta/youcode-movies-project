@@ -1,5 +1,5 @@
 import { Profile, ProfileWrapper, StyledLink, Text, Wrapper } from "./styled";
-import profilePlaceholder from "./profile_placeholder.svg";
+import profilePlaceholder from "../../../../../assets/no-profile.svg";
 
 const PersonTile = ({ person }) => {
     const profilePath = `https://image.tmdb.org/t/p/w185/${person.profile_path}`;
