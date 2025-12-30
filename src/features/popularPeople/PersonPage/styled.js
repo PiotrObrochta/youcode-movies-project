@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import noPoster from "../../../assets/no-poster.svg";
 
 export const Wrapper = styled.main`
   max-width: 1368px;
@@ -15,6 +16,7 @@ export const HeaderSection = styled.section`
   display: flex;
   gap: 40px;
   background-color: ${({ theme }) => theme.colors.white};
+  height: 644px;
   padding: 40px;
   border-radius: 5px;
   margin-bottom: 64px;
@@ -25,6 +27,7 @@ export const HeaderSection = styled.section`
     gap: 16px;
     flex-direction: column;
     margin-bottom: 24px; 
+    height: auto;
   }
 `;
 
@@ -49,6 +52,8 @@ export const ProfileDetails = styled.div`
   flex-direction: column;
   gap: 24px;
   padding: 8px 0;
+  height: 100%;
+  overflow: hidden;
 `;
 
 export const Name = styled.h1`
@@ -116,11 +121,36 @@ export const Biography = styled.p`
   font-size: 20px;
   line-height: 160%;
   margin: 0;
+  
+    ${({ $overview }) =>
+    $overview &&
+    css`
+      overflow: auto;
+      max-height: 100%;
+      padding-right: 10px;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+      }
+    `}
 
    @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     font-size: 14px;
     line-height: 160%;
   }
+
+
 `;
 
 export const MoviesSection = styled.section`
@@ -182,5 +212,12 @@ export const MetaColumn = styled.div`
     width: auto;
     padding: 4px 0;
     gap: 16px;
+  }
+`;
+
+export const PosterFallbackScope = styled.div`
+  img[src*="via.placeholder.com"] {
+    content: url(${noPoster});
+    object-fit: contain;
   }
 `;
