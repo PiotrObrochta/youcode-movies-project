@@ -47,7 +47,7 @@ export const Text = styled.p`
     margin: 12px 0px 0px;
     word-break: break-word;
 
-    ${({$character}) => $character && css`
+    ${({$role}) => $role && css`
         font-size: 18px;
         font-weight: 400;
         line-height: 150%;

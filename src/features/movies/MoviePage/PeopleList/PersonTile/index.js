@@ -11,7 +11,7 @@ const PersonTile = ({ person }) => {
                     <Profile src={profilePath} alt="profile" onError={(event) => { event.currentTarget.src = profilePlaceholder }}></Profile>
                 </ProfileWrapper>
                 <Text>{person.name}</Text>
-                <Text $character>{person.character}</Text>
+                <Text $role>{person.character || person.job}</Text>
             </Wrapper>
         </StyledLink>
     )
