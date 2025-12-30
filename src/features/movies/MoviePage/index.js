@@ -38,8 +38,8 @@ const MoviePage = () => {
                     {
                         !loadingCredits && !errorCredits &&
                         <>
-                            <PeopleList header="Cast" people={credits.cast} />
-                            <PeopleList header="Crew" people={credits.crew} />
+                            <PeopleList header="Cast" people={credits.cast} idPrefix="people-cast" />
+                            <PeopleList header="Crew" people={credits.crew} idPrefix="people-crew" />
                         </>
                     }
                 </PageWrapper>
