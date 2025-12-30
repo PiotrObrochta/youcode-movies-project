@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ReactComponent as ArrowLeft } from "../../assets/icons/ArrowLeft.svg";
 import { ReactComponent as ArrowRight } from "../../assets/icons/ArrowRight.svg";
+import { ReactComponent as NoEntryIcon } from "../../assets/icons/NoEntry.svg";
 
 export const PaginationWrapper = styled.div`
   width: 100%;
@@ -10,7 +11,7 @@ export const PaginationWrapper = styled.div`
   gap: 24px;
   margin: 56px 0;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
     gap: 12px;
     margin: 32px 0;
   }
@@ -21,7 +22,7 @@ export const ButtonsGroup = styled.div`
   align-items: center;
   gap: 8px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
     gap: 4px;
   }
 `;
@@ -52,7 +53,7 @@ export const PaginationButton = styled.button`
     align-items: center;
   }
 
-@media (max-width: 480px) {
+@media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
   span {
     display: none;
   }
@@ -73,6 +74,24 @@ export const PaginationButton = styled.button`
   height: 24px;
   font-size: 10px;
 }
+
+&:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  position: relative;
+}
+
+&:disabled::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: url(${NoEntryIcon}) center/contain no-repeat;
+  pointer-events: none;
+}
 `;
 
 export const PageInfo = styled.div`
@@ -88,7 +107,7 @@ export const PageInfo = styled.div`
     color: ${({ theme }) => theme.colors.black};
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     font-size: 10px;
     line-height: 24px;
     gap: 4px;
