@@ -49,7 +49,6 @@ export const PersonTile = styled(Link)`
   width: 100%;
   aspect-ratio: 208 / 339;
   background: ${({ theme }) => theme.colors.white};
-  border-radius: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
