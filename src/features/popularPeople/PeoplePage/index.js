@@ -44,12 +44,8 @@ export const PeoplePage = () => {
         <PageTitle>Popular People</PageTitle>
 
         <PeopleGrid>
-          {people.slice(0, 24).map((person) => (
-            <PersonTile
-              key={person.id}
-              as={Link}
-              to={`/people/${person.id}`} // przygotowane pod przyszłą stronę
-            >
+          {people.map((person) => (
+            <PersonTile key={person.id} as={Link} to={`/people/${person.id}`}>
               <PhotoWrapper>
                 <Photo
                   src={
