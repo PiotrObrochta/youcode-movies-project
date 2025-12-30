@@ -38,7 +38,7 @@ export const MoviesPage = () => {
             <MovieCard key={m.id} movie={m} />
           ))}
         </GridWrapper>
-        <Pagination page={page} totalPages={totalPages}></Pagination>
+        <Pagination page={page} totalPages={totalPages} basePath="/movies"></Pagination>
       </ContentWrapper>
     </PageWrapper>
   );

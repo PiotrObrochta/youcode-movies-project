@@ -8,10 +8,10 @@ import {
 } from "./styled";
 import { useHistory } from "react-router-dom";
 
-const Pagination = ({ page, totalPages }) => {
+const Pagination = ({ page, totalPages, basePath }) => {
   const history = useHistory();
 
-  const goToPage = (p) => history.push(`/movies?page=${p}`);
+  const goToPage = (p) => history.push(`${basePath}?page=${p}`);
 
   const isFirstPage = page === 1;
   const isLastPage = page === totalPages;
