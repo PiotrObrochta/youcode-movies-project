@@ -18,7 +18,7 @@ import {
 import {
   selectFetchMoviesGenresStatus,
   selectMoviesGenres,
-} from "../../moviesSlice";
+} from "../genres/genresSlice";
 
 export const MovieCard = ({ movie, mode }) => {
   const moviesGenres = useSelector(selectMoviesGenres);

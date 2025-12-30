@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPersonDetails, getPersonMovieCredits } from "../../tmdbApi";
-import { MovieCard } from "../../movies/moviesPage/MovieCard";
+import { MovieCard } from "../../../common/MovieCard";
 import { GridWrapper } from "../../movies/moviesPage/styled";
 import {
     Wrapper,
