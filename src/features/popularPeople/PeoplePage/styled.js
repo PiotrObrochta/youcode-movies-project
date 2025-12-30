@@ -31,19 +31,23 @@ export const PageTitle = styled.h1`
 
 export const PeopleGrid = styled.div`
   display: grid;
-  gap: 24px;
   justify-content: center;
-  grid-template-columns: repeat(auto-fill, minmax(208px, 208px));
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(208px, 1fr));
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     gap: 16px;
-    grid-template-columns: repeat(auto-fill, minmax(136px, 136px));
+    grid-template-columns: repeat(auto-fit, minmax(136px, 1fr));
+  }
+
+  @media (max-width: 360px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 
 export const PersonTile = styled(Link)`
-  width: 208px;
-  height: 339px;
+  width: 100%;
+  aspect-ratio: 208 / 339;
   background: ${({ theme }) => theme.colors.white};
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -54,7 +58,6 @@ export const PersonTile = styled(Link)`
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-
   transition: box-shadow 0.3s ease;
 
   &:hover {
@@ -62,21 +65,20 @@ export const PersonTile = styled(Link)`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
-    width: 136px;
-    height: 245px;
+    aspect-ratio: 136 / 245;
   }
 `;
 
 export const PhotoWrapper = styled.div`
-  width: 176px;
-  height: 231px;
+  width: calc(100% - 32px);
+  aspect-ratio: 176 / 231;
   margin-top: 16px;
   border-radius: 6px;
   overflow: hidden;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
-    width: 120px;
-    height: 178px;
+    width: calc(100% - 16px);
+    aspect-ratio: 120 / 178;
     margin-top: 8px;
   }
 `;
@@ -93,17 +95,15 @@ export const Photo = styled.img`
 `;
 
 export const Name = styled.p`
-  width: 176px;
   margin: 16px;
-  font-size: 22px;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
+  font-size: 22px;
   line-height: 130%;
   text-align: center;
-  color: ${({ theme }) => theme.colors.black};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
-    width: 120px;
-    font-size: 14px;
     margin: 8px;
+    font-size: 14px;
   }
 `;
