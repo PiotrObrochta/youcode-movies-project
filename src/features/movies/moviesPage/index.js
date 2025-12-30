@@ -1,4 +1,4 @@
-import { MovieCard } from "./MovieCard";
+import MovieCard from "../../../common/MovieCard";
 import LoadingView from "../../../common/LoadingView";
 import { PageWrapper, ContentWrapper, PageTitle, GridWrapper } from "./styled";
 import { useSelector } from "react-redux";

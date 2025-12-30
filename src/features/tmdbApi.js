@@ -20,6 +20,7 @@ export const getDataFromApi = async (type = "movie", page = 1) => {
 
     const response = await fetch(endpoint);
 
+
     if (!response.ok) {
         throw new Error("Fetching movies failed")
     }
