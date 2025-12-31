@@ -19,37 +19,46 @@ import {
   Name,
   PhotoWrapper,
 } from "./styled";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-export const PeoplePage = () => {
+import { Link } from "react-router-dom";
+import {
+  selectSearchResults,
+  selectSearchStatus,
+  selectSearchType,
+} from "../../search/searchSlice";
+
+const PeoplePage = () => {
   const dispatch = useDispatch();
-  const people = useSelector(selectPopularPeople);
-  const status = useSelector(selectFetchPopularPeopleStatus);
+
+  const popularPeople = useSelector(selectPopularPeople);
+  const popularStatus = useSelector(selectFetchPopularPeopleStatus);
+
+  const searchResults = useSelector(selectSearchResults);
+  const searchStatus = useSelector(selectSearchStatus);
+  const searchType = useSelector(selectSearchType);
+
+  const isSearch = searchType === "people";
 
   useEffect(() => {
     dispatch(fetchPopularPeople(1));
   }, [dispatch]);
 
-  if (status === "loading") {
-    return <LoadingView header="People loading..." />;
-  }
+  if (isSearch && searchStatus === "loading")
+    return <LoadingView header="Searching people..." />;
 
-  if (status === "error") {
-    return <h2>Cannot load people data</h2>;
-  }
+  if (!isSearch && popularStatus === "loading")
+    return <LoadingView header="People loading..." />;
+
+  const people = isSearch ? searchResults : popularPeople;
 
   return (
     <PageWrapper>
       <ContentWrapper>
-        <PageTitle>Popular People</PageTitle>
+        <PageTitle>{isSearch ? "Search results" : "Popular People"}</PageTitle>
 
         <PeopleGrid>
-          {people.slice(0, 24).map((person) => (
-            <PersonTile
-              key={person.id}
-              as={Link}
-              to={`/people/${person.id}`} // przygotowane pod przyszłą stronę
-            >
+          {people.map((person) => (
+            <PersonTile key={person.id} as={Link} to={`/people/${person.id}`}>
               <PhotoWrapper>
                 <Photo
                   src={
@@ -64,7 +73,8 @@ export const PeoplePage = () => {
             </PersonTile>
           ))}
         </PeopleGrid>
-        <Pagination page={"1"} totalPages={"500"} />
+
+        {!isSearch && <Pagination page="1" totalPages="500" />}
       </ContentWrapper>
     </PageWrapper>
   );

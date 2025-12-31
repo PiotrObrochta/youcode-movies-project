@@ -2,27 +2,50 @@ import { MovieCard } from "./MovieCard";
 import LoadingView from "../../../common/LoadingView";
 import { PageWrapper, ContentWrapper, PageTitle, GridWrapper } from "./styled";
 import { useSelector } from "react-redux";
-import { selectFetchPopularMoviesStatus, selectPopularMovies } from "../moviesSlice";
+import {
+  selectFetchPopularMoviesStatus,
+  selectPopularMovies,
+} from "../moviesSlice";
 import ErrorView from "../../../common/ErrorView";
 import Pagination from "../../../common/Pagination";
+import {
+  selectSearchResults,
+  selectSearchStatus,
+  selectSearchType,
+} from "../../search/searchSlice";
 
-export const MoviesPage = () => {
-  const movies = useSelector(selectPopularMovies);
-  const fetchMoviesStatus = useSelector(selectFetchPopularMoviesStatus);
+const MoviesPage = () => {
+  const popularMovies = useSelector(selectPopularMovies);
+  const popularStatus = useSelector(selectFetchPopularMoviesStatus);
 
-  if (fetchMoviesStatus === "loading") return <LoadingView header={"Movies loading..."}></LoadingView>
-  if (fetchMoviesStatus === "error") return <ErrorView></ErrorView>
+  const searchResults = useSelector(selectSearchResults);
+  const searchStatus = useSelector(selectSearchStatus);
+  const searchType = useSelector(selectSearchType);
+
+  const isSearch = searchType === "movies";
+
+  if (isSearch && searchStatus === "loading")
+    return <LoadingView header="Searching movies..." />;
+
+  if (!isSearch && popularStatus === "loading")
+    return <LoadingView header="Movies loading..." />;
+
+  if (popularStatus === "error") return <ErrorView />;
+
+  const movies = isSearch ? searchResults : popularMovies;
+
   return (
     <PageWrapper>
       <ContentWrapper>
-        <PageTitle>Popular Movies</PageTitle>
+        <PageTitle>{isSearch ? "Search results" : "Popular Movies"}</PageTitle>
 
         <GridWrapper>
-          {movies.slice(0, 8).map((m) => (
-          <MovieCard key={m.id} movie={m} />
-        ))}
+          {movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
         </GridWrapper>
-        <Pagination page={"1"} totalPages={"500"}></Pagination>
+
+        {!isSearch && <Pagination page="1" totalPages="500" />}
       </ContentWrapper>
     </PageWrapper>
   );
