@@ -20,12 +20,14 @@ import {
   selectMoviesGenres,
 } from "../../moviesSlice";
 
+import noPoster from "../../../../assets/no-poster.svg";
+
 export const MovieCard = ({ movie, mode }) => {
   const moviesGenres = useSelector(selectMoviesGenres);
   const fetchMoviesGenresStatus = useSelector(selectFetchMoviesGenresStatus);
 
   if (!movie) return null;
-  if (fetchMoviesGenresStatus !== "success") return;
+  if (fetchMoviesGenresStatus !== "success") return null;
 
   const movieGenres = (movie.genre_ids || [])
     .slice(0, 3)
@@ -39,7 +41,7 @@ export const MovieCard = ({ movie, mode }) => {
             src={
               movie.poster_path
                 ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                : "https://via.placeholder.com/292x434?text=No+Image"
+                : noPoster
             }
             alt={movie.title}
           />
@@ -62,10 +64,7 @@ export const MovieCard = ({ movie, mode }) => {
               </Info>
             )}
 
-
-            {!mode && (
-              <Info>{movie.release_date?.slice(0, 4)}</Info>
-            )}
+            {!mode && <Info>{movie.release_date?.slice(0, 4)}</Info>}
             <GenresWrapper>
               {movieGenres.map(({ id, name }) => (
                 <GenreTag key={id}>{name}</GenreTag>

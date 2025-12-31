@@ -5,10 +5,10 @@ import {
   selectPopularPeople,
   selectFetchPopularPeopleStatus,
 } from "../peopleSlice";
-
 import LoadingView from "../../../common/LoadingView";
+import NoResultsView from "../../../common/NoResultsView";
+import ErrorView from "../../../common/ErrorView";
 import Pagination from "../../../common/Pagination";
-
 import {
   PageWrapper,
   ContentWrapper,
@@ -19,13 +19,14 @@ import {
   Name,
   PhotoWrapper,
 } from "./styled";
-
 import { Link } from "react-router-dom";
 import {
   selectSearchResults,
   selectSearchStatus,
   selectSearchType,
+  selectSearchQuery,
 } from "../../search/searchSlice";
+import noProfile from "../../../assets/no-profile.svg";
 
 const PeoplePage = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const PeoplePage = () => {
   const searchResults = useSelector(selectSearchResults);
   const searchStatus = useSelector(selectSearchStatus);
   const searchType = useSelector(selectSearchType);
+  const query = useSelector(selectSearchQuery);
 
   const isSearch = searchType === "people";
 
@@ -44,17 +46,24 @@ const PeoplePage = () => {
   }, [dispatch]);
 
   if (isSearch && searchStatus === "loading")
-    return <LoadingView header="Searching people..." />;
+    return <LoadingView query={query} />;
 
   if (!isSearch && popularStatus === "loading")
     return <LoadingView header="People loading..." />;
 
+  if (popularStatus === "error") return <ErrorView />;
+
   const people = isSearch ? searchResults : popularPeople;
+
+  if (isSearch && searchStatus === "success" && people.length === 0)
+    return <NoResultsView query={query} />;
 
   return (
     <PageWrapper>
       <ContentWrapper>
-        <PageTitle>{isSearch ? "Search results" : "Popular People"}</PageTitle>
+        <PageTitle>
+          {isSearch ? `Search results for "${query}"` : "Popular People"}
+        </PageTitle>
 
         <PeopleGrid>
           {people.map((person) => (
@@ -64,7 +73,7 @@ const PeoplePage = () => {
                   src={
                     person.profile_path
                       ? `https://image.tmdb.org/t/p/w185${person.profile_path}`
-                      : "/assets/no-profile.png"
+                      : noProfile
                   }
                   alt={person.name}
                 />
