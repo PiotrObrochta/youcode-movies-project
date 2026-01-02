@@ -24,7 +24,7 @@ import {
   selectSearchResults,
   selectSearchStatus,
   selectSearchType,
-  selectSearchQuery,
+  selectSubmittedQuery,
 } from "../../search/searchSlice";
 import noProfile from "../../../assets/no-profile.svg";
 
@@ -37,16 +37,16 @@ const PeoplePage = () => {
   const searchResults = useSelector(selectSearchResults);
   const searchStatus = useSelector(selectSearchStatus);
   const searchType = useSelector(selectSearchType);
-  const query = useSelector(selectSearchQuery);
+  const submittedQuery = useSelector(selectSubmittedQuery);
 
   const isSearch = searchType === "people";
 
   useEffect(() => {
-    dispatch(fetchPopularPeople(1));
-  }, [dispatch]);
+    if (!isSearch) dispatch(fetchPopularPeople(1));
+  }, [dispatch, isSearch]);
 
   if (isSearch && searchStatus === "loading")
-    return <LoadingView query={query} />;
+    return <LoadingView query={submittedQuery} />;
 
   if (!isSearch && popularStatus === "loading")
     return <LoadingView header="People loading..." />;
@@ -56,13 +56,15 @@ const PeoplePage = () => {
   const people = isSearch ? searchResults : popularPeople;
 
   if (isSearch && searchStatus === "success" && people.length === 0)
-    return <NoResultsView query={query} />;
+    return <NoResultsView query={submittedQuery} />;
 
   return (
     <PageWrapper>
       <ContentWrapper>
         <PageTitle>
-          {isSearch ? `Search results for "${query}"` : "Popular People"}
+          {isSearch
+            ? `Search results for "${submittedQuery}"`
+            : "Popular People"}
         </PageTitle>
 
         <PeopleGrid>

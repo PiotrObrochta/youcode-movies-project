@@ -3,47 +3,52 @@ import { createSlice } from "@reduxjs/toolkit";
 const searchSlice = createSlice({
   name: "search",
   initialState: {
-    query: "",
-    searchType: null, // "movies" | "people"
+    inputValue: "",
+    submittedQuery: "",
+    searchType: null,
     results: [],
     status: "idle",
   },
   reducers: {
-    setQuery: (state, { payload }) => {
-      state.query = payload;
+    setInputValue: (state, action) => {
+      state.inputValue = action.payload;
     },
-    setSearchType: (state, { payload }) => {
-      state.searchType = payload;
+    setSearchType: (state, action) => {
+      state.searchType = action.payload;
     },
-    fetchSearchResults: () => {},
-    setSearchResults: (state, { payload }) => {
-      state.results = payload;
+    setSearchResults: (state, action) => {
+      state.results = action.payload;
     },
-    setSearchStatus: (state, { payload }) => {
-      state.status = payload;
+    setSearchStatus: (state, action) => {
+      state.status = action.payload;
+    },
+    submitSearch: (state) => {
+      state.submittedQuery = state.inputValue;
+      state.inputValue = "";
     },
     clearSearch: (state) => {
-      state.query = "";
-      state.searchType = null;
+      state.inputValue = "";
+      state.submittedQuery = "";
       state.results = [];
+      state.searchType = null;
       state.status = "idle";
     },
   },
 });
 
 export const {
-  setQuery,
+  setInputValue,
   setSearchType,
-  fetchSearchResults,
   setSearchResults,
   setSearchStatus,
+  submitSearch,
   clearSearch,
 } = searchSlice.actions;
 
-export const selectSearch = (state) => state.search;
+export const selectInputValue = (state) => state.search.inputValue;
+export const selectSubmittedQuery = (state) => state.search.submittedQuery;
+export const selectSearchType = (state) => state.search.searchType;
 export const selectSearchResults = (state) => state.search.results;
 export const selectSearchStatus = (state) => state.search.status;
-export const selectSearchQuery = (state) => state.search.query;
-export const selectSearchType = (state) => state.search.searchType;
 
 export default searchSlice.reducer;

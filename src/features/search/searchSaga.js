@@ -1,18 +1,16 @@
 import { call, put, select, takeLatest } from "redux-saga/effects";
 import {
-  fetchSearchResults,
+  submitSearch,
   setSearchResults,
   setSearchStatus,
-  selectSearchQuery,
+  selectSubmittedQuery,
   selectSearchType,
 } from "./searchSlice";
 import { searchMovies, searchPeople } from "../tmdbApi";
 
 function* fetchSearchHandler() {
   try {
-    yield put(setSearchStatus("loading"));
-
-    const query = yield select(selectSearchQuery);
+    const query = yield select(selectSubmittedQuery);
     const type = yield select(selectSearchType);
 
     if (!query || !type) {
@@ -21,6 +19,8 @@ function* fetchSearchHandler() {
       return;
     }
 
+    yield put(setSearchStatus("loading"));
+
     const results =
       type === "movies"
         ? yield call(searchMovies, query)
@@ -28,11 +28,12 @@ function* fetchSearchHandler() {
 
     yield put(setSearchResults(results));
     yield put(setSearchStatus("success"));
-  } catch {
+  } catch (error) {
+    console.error("Search saga error:", error);
     yield put(setSearchStatus("error"));
   }
 }
 
 export default function* searchSaga() {
-  yield takeLatest(fetchSearchResults.type, fetchSearchHandler);
+  yield takeLatest(submitSearch.type, fetchSearchHandler);
 }

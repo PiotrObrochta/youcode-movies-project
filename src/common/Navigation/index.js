@@ -15,18 +15,19 @@ import {
 import { ReactComponent as SearchIcon } from "../../assets/icons/Search.svg";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchSearchResults,
+  setInputValue,
   setSearchType,
-  setQuery,
+  submitSearch,
   clearSearch,
-  selectSearchQuery,
+  selectInputValue,
 } from "../../features/search/searchSlice";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const query = useSelector(selectSearchQuery);
+  const inputValue = useSelector(selectInputValue);
   const location = useLocation();
+  const history = useHistory();
 
   const currentSearchType = location.pathname.startsWith("/people")
     ? "people"
@@ -34,14 +35,15 @@ const Navigation = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (!query) return;
+    if (!inputValue) return;
+
     dispatch(setSearchType(currentSearchType));
-    dispatch(fetchSearchResults(query));
+    dispatch(submitSearch());
+    history.push(currentSearchType === "people" ? "/people" : "/movies");
   };
 
   const handleResetSearch = () => {
     dispatch(clearSearch());
-    dispatch(setQuery(""));
   };
 
   return (
@@ -61,6 +63,7 @@ const Navigation = () => {
               PEOPLE
             </MenuLink>
           </Menu>
+
           <Right>
             <SearchWrapper>
               <SearchIcon />
@@ -71,8 +74,8 @@ const Navigation = () => {
                       ? "Search for people..."
                       : "Search for movies..."
                   }
-                  value={query}
-                  onChange={(e) => dispatch(setQuery(e.target.value))}
+                  value={inputValue}
+                  onChange={(e) => dispatch(setInputValue(e.target.value))}
                 />
               </form>
             </SearchWrapper>

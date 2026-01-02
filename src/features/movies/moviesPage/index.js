@@ -12,7 +12,7 @@ import {
   selectSearchResults,
   selectSearchStatus,
   selectSearchType,
-  selectSearchQuery,
+  selectSubmittedQuery,
 } from "../../search/searchSlice";
 import Pagination from "../../../common/Pagination";
 
@@ -23,12 +23,12 @@ const MoviesPage = () => {
   const searchResults = useSelector(selectSearchResults);
   const searchStatus = useSelector(selectSearchStatus);
   const searchType = useSelector(selectSearchType);
-  const query = useSelector(selectSearchQuery);
+  const submittedQuery = useSelector(selectSubmittedQuery);
 
   const isSearch = searchType === "movies";
 
   if (isSearch && searchStatus === "loading")
-    return <LoadingView query={query} />;
+    return <LoadingView query={submittedQuery} />;
 
   if (!isSearch && popularStatus === "loading")
     return <LoadingView header="Movies loading..." />;
@@ -38,13 +38,15 @@ const MoviesPage = () => {
   const movies = isSearch ? searchResults : popularMovies;
 
   if (isSearch && searchStatus === "success" && movies.length === 0)
-    return <NoResultsView query={query} />;
+    return <NoResultsView query={submittedQuery} />;
 
   return (
     <PageWrapper>
       <ContentWrapper>
         <PageTitle>
-          {isSearch ? `Search results for "${query}"` : "Popular Movies"}
+          {isSearch
+            ? `Search results for "${submittedQuery}"`
+            : "Popular Movies"}
         </PageTitle>
 
         <GridWrapper>
