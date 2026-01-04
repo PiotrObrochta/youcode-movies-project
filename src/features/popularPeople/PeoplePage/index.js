@@ -50,7 +50,7 @@ export const PeoplePage = () => {
         <PeopleGrid>
           {people.map((person) => (
             <PersonTile
-              key={person.id}
+              key={`pop-person-${person.id}-${index}`}
               as={Link}
               to={`/people/${person.id}`} // przygotowane pod przyszłą stronę
             >

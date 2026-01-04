@@ -14,6 +14,11 @@ export const Wrapper = styled.div`
     align-items: start;
     grid-template-rows: auto auto 1fr;
     height: 100%;
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
         padding: 8px;
@@ -25,6 +30,7 @@ export const Wrapper = styled.div`
 export const ProfileWrapper = styled.div`
     height: 231px;
     width: 100%;
+    overflow: hidden;
     
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
@@ -38,6 +44,11 @@ export const Profile = styled.img`
     border-radius: 5px;
     width: 100%;
     object-fit: cover;
+    transition: transform 0.6s ease;
+
+    &:hover {
+        transform: scale(1.06);
+    }
 `
 
 export const Text = styled.p`
@@ -47,7 +58,7 @@ export const Text = styled.p`
     margin: 12px 0px 0px;
     word-break: break-word;
 
-    ${({$character}) => $character && css`
+    ${({$role}) => $role && css`
         font-size: 18px;
         font-weight: 400;
         line-height: 150%;
@@ -61,7 +72,7 @@ export const Text = styled.p`
         font-weight: 500;
         margin-top: 8px;
 
-        ${({$character}) => $character && css`
+        ${({ $character }) => $character && css`
             font-size: 13px;
             line-height: 130%;
             color: #7E839A;

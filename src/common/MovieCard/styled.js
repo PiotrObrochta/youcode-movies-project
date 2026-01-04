@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as StarIcon } from "../../../../assets/star.svg";
+import { ReactComponent as StarIcon } from "../../assets/star.svg";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export const Card = styled.div`

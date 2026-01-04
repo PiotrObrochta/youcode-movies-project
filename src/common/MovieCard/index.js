@@ -18,7 +18,7 @@ import {
 import {
   selectFetchMoviesGenresStatus,
   selectMoviesGenres,
-} from "../../moviesSlice";
+} from "../genres/genresSlice";
 
 export const MovieCard = ({ movie, mode }) => {
   const moviesGenres = useSelector(selectMoviesGenres);
@@ -39,7 +39,7 @@ export const MovieCard = ({ movie, mode }) => {
             src={
               movie.poster_path
                 ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                : "https://via.placeholder.com/292x434?text=No+Image"
+                : noPoster
             }
             alt={movie.title}
           />
