@@ -44,9 +44,9 @@ export const PeoplePage = () => {
         <PageTitle>Popular People</PageTitle>
 
         <PeopleGrid>
-          {people.slice(0, 24).map((person) => (
+          {people.slice(0, 24).map((person, index) => (
             <PersonTile
-              key={person.id}
+              key={`pop-person-${person.id}-${index}`}
               as={Link}
               to={`/people/${person.id}`} // przygotowane pod przyszłą stronę
             >

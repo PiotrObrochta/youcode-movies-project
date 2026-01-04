@@ -1,4 +1,4 @@
-import { MovieCard } from "./MovieCard";
+import MovieCard from "../../../common/MovieCard";
 import LoadingView from "../../../common/LoadingView";
 import { PageWrapper, ContentWrapper, PageTitle, GridWrapper } from "./styled";
 import { useSelector } from "react-redux";
@@ -19,7 +19,7 @@ export const MoviesPage = () => {
 
         <GridWrapper>
           {movies.slice(0, 8).map((m) => (
-          <MovieCard key={m.id} movie={m} />
+          <MovieCard key={`pop-movie-${m.id}`} movie={m} />
         ))}
         </GridWrapper>
         <Pagination page={"1"} totalPages={"500"}></Pagination>
