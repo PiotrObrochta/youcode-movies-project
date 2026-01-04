@@ -119,6 +119,10 @@ export const MenuLink = styled(NavLink)`
   border-radius: 24px;
   border: 1px solid transparent;
 
+  &:hover {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+  }
+
   &.active {
     border-color: ${({ theme }) => theme.colors.white};
   }
