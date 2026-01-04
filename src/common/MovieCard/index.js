@@ -18,8 +18,7 @@ import {
 import {
   selectFetchMoviesGenresStatus,
   selectMoviesGenres,
-} from "../../moviesSlice";
-import noPoster from "../../../../assets/no-poster.svg";
+} from "../genres/genresSlice";
 
 export const MovieCard = ({ movie, mode }) => {
   const moviesGenres = useSelector(selectMoviesGenres);
