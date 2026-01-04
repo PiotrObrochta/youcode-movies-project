@@ -5,10 +5,26 @@ import { useSelector } from "react-redux";
 import { selectFetchPopularMoviesStatus, selectPopularMovies } from "../moviesSlice";
 import ErrorView from "../../../common/ErrorView";
 import Pagination from "../../../common/Pagination";
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchPopularMovies } from "../moviesSlice";
+import { selectTotalPopularMoviesPages } from "../moviesSlice";
 
 export const MoviesPage = () => {
-  const movies = useSelector(selectPopularMovies);
+  const movies = useSelector(selectPopularMovies) || [];
   const fetchMoviesStatus = useSelector(selectFetchPopularMoviesStatus);
+  const totalPages = useSelector(selectTotalPopularMoviesPages);
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  const page = Number(new URLSearchParams(location.search).get("page") || 1);
+
+  useEffect(() => {
+    dispatch(fetchPopularMovies(page));
+  }, [page, dispatch]);
+
+
 
   if (fetchMoviesStatus === "loading") return <LoadingView header={"Movies loading..."}></LoadingView>
   if (fetchMoviesStatus === "error") return <ErrorView></ErrorView>
@@ -18,11 +34,11 @@ export const MoviesPage = () => {
         <PageTitle>Popular Movies</PageTitle>
 
         <GridWrapper>
-          {movies.slice(0, 8).map((m) => (
-          <MovieCard key={`pop-movie-${m.id}`} movie={m} />
-        ))}
+          {movies.map((m) => (
+            <MovieCard key={m.id} movie={m} />
+          ))}
         </GridWrapper>
-        <Pagination page={"1"} totalPages={"500"}></Pagination>
+        <Pagination page={page} totalPages={totalPages} basePath="/movies"></Pagination>
       </ContentWrapper>
     </PageWrapper>
   );

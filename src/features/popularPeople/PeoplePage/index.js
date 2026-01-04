@@ -8,6 +8,7 @@ import {
 
 import LoadingView from "../../../common/LoadingView";
 import Pagination from "../../../common/Pagination";
+import { useLocation } from "react-router-dom";
 
 import {
   PageWrapper,
@@ -22,13 +23,16 @@ import {
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export const PeoplePage = () => {
+  const location = useLocation();
+  const page = Number(new URLSearchParams(location.search).get("page") || 1);
+
   const dispatch = useDispatch();
   const people = useSelector(selectPopularPeople);
   const status = useSelector(selectFetchPopularPeopleStatus);
 
   useEffect(() => {
-    dispatch(fetchPopularPeople(1));
-  }, [dispatch]);
+    dispatch(fetchPopularPeople(page));
+  }, [page, dispatch]);
 
   if (status === "loading") {
     return <LoadingView header="People loading..." />;
@@ -44,7 +48,7 @@ export const PeoplePage = () => {
         <PageTitle>Popular People</PageTitle>
 
         <PeopleGrid>
-          {people.slice(0, 24).map((person, index) => (
+          {people.map((person) => (
             <PersonTile
               key={`pop-person-${person.id}-${index}`}
               as={Link}
@@ -64,7 +68,7 @@ export const PeoplePage = () => {
             </PersonTile>
           ))}
         </PeopleGrid>
-        <Pagination page={"1"} totalPages={"500"} />
+        <Pagination page={page} totalPages={500} basePath="/people"></Pagination>
       </ContentWrapper>
     </PageWrapper>
   );
