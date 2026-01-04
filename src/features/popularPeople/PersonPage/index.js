@@ -118,9 +118,9 @@ const PersonPage = () => {
                 <SectionTitle>Movies – cast ({cast.length})</SectionTitle>
                 <PosterFallbackScope>
                     <GridWrapper>
-                        {cast.map((movie) => (
+                        {cast.map((movie, index) => (
                             <MovieCard
-                                key={movie.credit_id}
+                                key={`person-cast-${movie.credit_id}-${index}`}
                                 movie={movie}
                                 mode="cast"
                             />
@@ -133,9 +133,9 @@ const PersonPage = () => {
                 <SectionTitle>Movies – crew ({crew.length})</SectionTitle>
                 <PosterFallbackScope>
                     <GridWrapper>
-                        {crew.map((movie) => (
+                        {crew.map((movie, index) => (
                             <MovieCard
-                                key={movie.credit_id}
+                                key={`person-crew-${movie.credit_id}-${index}`}
                                 movie={movie}
                                 mode="crew"
                             />
