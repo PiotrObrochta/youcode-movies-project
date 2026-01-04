@@ -10,7 +10,7 @@ export const Container = styled.div`
     justify-items: center;
     margin: 180px auto;
     
-    @media (max-width: 767px) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
         margin-top: 90px
     }
 `
@@ -19,7 +19,7 @@ export const DangerIcon = styled(Danger)`
     width: 120px;
     height: 120px;
 
-    @media (max-width: 767px) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
         width: 80px;
         height: 80px;
     }
@@ -32,7 +32,7 @@ export const Header = styled.h1`
     text-align: center;
     margin: 0px;
 
-    @media (max-width: 767px) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
         font-size: 14px;
         font-weight: 500;
     }
@@ -45,7 +45,7 @@ export const Info = styled.p`
     text-align: center;
     margin: 0px;
 
-    @media (max-width: 767px) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
         font-size: 10px;
         font-weight: 400;
     }
@@ -57,20 +57,20 @@ export const HomepageButton = styled.button`
     font-size: 14px;
     font-weight: 700;
     line-height: 19px;
-    background-color: #0044cc;
-    color: #fff;
+    background-color: ${({ theme }) => theme.colors.blue};
+    color: ${({ theme }) => theme.colors.white};
     border: 0px;
     border-radius: 5px;
 
     &:hover {
-        background-color: hsla(220, 100%, 50%, 1.00);
+        background-color: ${({ theme }) => theme.colors.blueHover};
     }
 
     &:active {
-        background-color: hsla(220, 100%, 60%, 1.00);
+        background-color: ${({ theme }) => theme.colors.blueActive};
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
         font-size: 10px;
         font-weight: 400;
         padding: 8px 12px;

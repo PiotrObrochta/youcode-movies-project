@@ -20,6 +20,5 @@ function* fetchPopularMoviesHandler({ payload: page }) {
 }
 
 export default function* moviesSaga () {
-    yield call(fetchPopularMoviesHandler)
     yield takeLatest(fetchPopularMovies.type, fetchPopularMoviesHandler);
 }

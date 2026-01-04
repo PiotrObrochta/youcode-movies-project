@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
     text-align: center;
     max-width: 258px;
     width: 100%;
-    color: #000;
+    color: ${({ theme }) => theme.colors.darkNav};
     display: grid;
     align-items: start;
     grid-template-rows: auto auto 1fr;
@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
     transition: box-shadow 0.3s ease;
 
     &:hover {
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 8px 20px ${({ theme }) => theme.colors.darkShadow};
     }
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
@@ -30,6 +30,7 @@ export const Wrapper = styled.div`
 export const ProfileWrapper = styled.div`
     height: 231px;
     width: 100%;
+    border-radius: 5px;
     overflow: hidden;
     
 
@@ -41,7 +42,6 @@ export const ProfileWrapper = styled.div`
 
 export const Profile = styled.img`
     height: 100%;
-    border-radius: 5px;
     width: 100%;
     object-fit: cover;
     transition: transform 0.6s ease;
@@ -57,12 +57,13 @@ export const Text = styled.p`
     line-height: 130%;
     margin: 12px 0px 0px;
     word-break: break-word;
+    color: ${({ theme }) => theme.colors.blackNav};
 
     ${({$role}) => $role && css`
         font-size: 18px;
         font-weight: 400;
         line-height: 150%;
-        color: #627489;
+        color: ${({ theme }) => theme.colors.lynch};
         margin-top: 8px;
         align-self: flex-end;
     `}
@@ -75,7 +76,7 @@ export const Text = styled.p`
         ${({ $character }) => $character && css`
             font-size: 13px;
             line-height: 130%;
-            color: #7E839A;
+            color: ${({ theme }) => theme.colors.blackNav};
             align-self: flex-end;
     `}
     }

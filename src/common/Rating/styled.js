@@ -7,10 +7,10 @@ export const RateContainer = styled.div`
     grid-row-gap: 16px;
     align-items: center;
     margin-bottom: 16px;
-    color: #fff;
+    color: ${({ theme }) => theme.colors.white};
 
     ${({ $description }) => $description && css`
-        color: #000;
+        color: ${({ theme }) => theme.colors.blackNav};
         grid-template-columns: repeat(4, auto);
         width: fit-content;
         margin-bottom: 0px;
@@ -86,7 +86,7 @@ export const SmallerText = styled.div`
         ${({ $description, $votes }) => $description && $votes && css`
         display: block;
         font-size: 13px;
-        color: #7E839A;
+        color: ${({ theme }) => theme.colors.darkGray};
         margin-bottom: 0px;
         line-height: 120%;
         margin-left: 7px;

@@ -1,5 +1,5 @@
 import { GridWrapper } from "../../../../movies/moviesPage/styled";
-import { MovieCard } from "../../../../movies/moviesPage/MovieCard";
+import { MovieCard } from "../../../../../common/MovieCard";
 import { MoviesSection, SectionTitle, PosterFallbackScope } from "./styled";
 
 const PersonMoviesCrew = ({ crew }) => (

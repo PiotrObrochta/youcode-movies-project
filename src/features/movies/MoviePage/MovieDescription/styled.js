@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
     margin-top: 64px;
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.colors.white};
     padding: 40px;
     display: grid;
     grid-template-columns: auto 1fr;
@@ -87,7 +87,7 @@ export const Text = styled.p`
     `}
 
     ${({ $greyColor }) => $greyColor && css`
-        color: #74788B;
+        color: ${({ theme }) => theme.colors.lightGray};
         margin-right: 10px;
     `}
 
@@ -104,31 +104,31 @@ export const Text = styled.p`
         }   
 
         &::-webkit-scrollbar-thumb {
-            background-color: rgba(0,0,0,0.5);
+            background-color: ${({ theme }) => theme.colors.blackNav};
             border-radius: 4px;
         }
 
 
         &::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.1);
+            background: ${({ theme }) => theme.colors.blackNav};
             border-radius: 4px;
         }
     `}
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
         font-size: 13px;
-        color: #627489;
+        color: ${({ theme }) => theme.colors.lynch};
 
         ${({ $label }) => $label && css`
             font-size: 12px;
-            color: #000;
+            color: ${({ theme }) => theme.colors.blackNav};
         `}
 
         ${({ $overview }) => $overview && css`
             font-size: 14px;
             overflow: visible;
             grid-area: overview;
-            color: #000;
+            color: ${({ theme }) => theme.colors.blackNav};
             `}
 
         ${({ $greyColor }) => $greyColor && css`
@@ -158,7 +158,7 @@ export const Genre = styled.div`
     font-size: 14px;
     font-weight: 400;
     line-height: 100%;
-    background-color: #E4E6F0;
+    background-color: ${({ theme }) => theme.colors.gray};
     border-radius: 5px;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {

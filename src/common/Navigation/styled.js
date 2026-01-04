@@ -23,7 +23,7 @@ export const Wrapper = styled.header`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
     padding: 12px;
-    gap: 12px;
+    gap: 10px;
   }
 `;
 
@@ -58,9 +58,15 @@ export const CameraIconStyled = styled(CameraIcon)`
   fill: none;
   flex-shrink: 0;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     width: 24px;
-    height: 24px;
+    height: 24x;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
+    width: 17px;
+    height: 17px;
+    margin-bottom: 2px;
   }
 `;
 
@@ -76,10 +82,11 @@ export const Title = styled.h1`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
     font-size: 20px;
     line-height: 24px;
+    letter-spacing: -0.5px;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
   }
 `;
@@ -123,7 +130,7 @@ export const MenuLink = styled(NavLink)`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
-    padding: 6px 12px;
+    padding: 8px 12px;
     font-size: 12px;
   }
 `;

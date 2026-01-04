@@ -4,7 +4,7 @@ export const PageWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 24px;
+  padding: 56px 24px;
   box-sizing: border-box;
 `;
 
@@ -20,10 +20,10 @@ export const PageTitle = styled.h1`
   font-weight: 600;
   line-height: 120%;
   color: ${({ theme }) => theme.colors.black};
-  margin: 24px 0;
+  margin: 0 0 24px;
   text-align: left;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
     font-size: 18px;
     margin-bottom: 16px;
   }
@@ -43,9 +43,4 @@ export const GridWrapper = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
      grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
   }
-
-  /* @media (max-width: 659px) {
-    justify-content: center;
-    grid-template-columns: 288px;
-  } */
 `;

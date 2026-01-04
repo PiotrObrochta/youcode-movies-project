@@ -104,12 +104,12 @@ export const Biography = styled.p`
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: ${({ theme }) => theme.colors.blackNav};
         border-radius: 4px;
       }
 
       &::-webkit-scrollbar-track {
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: ${({ theme }) => theme.colors.blackNav};
         border-radius: 4px;
       }
     `}

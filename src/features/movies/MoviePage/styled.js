@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Hero = styled.div`
     width: 100%;
     height: 770px;
-    background-color: black;
+    background-color: ${({ theme }) => theme.colors.blackNav};
     text-align: center;
     overflow: hidden;
     position:relative;
@@ -64,7 +64,7 @@ export const HeroContent = styled.div`
 `
 
 export const Header = styled.h1`
-    color: #fff;
+    color: ${({ theme }) => theme.colors.white};
     font-size: 64px;
     font-weight: 600;
     line-height: 120%;

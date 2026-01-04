@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { ReactComponent as ArrowLeft } from "../../assets/icons/ArrowLeft.svg";
 import { ReactComponent as ArrowRight } from "../../assets/icons/ArrowRight.svg";
-import { ReactComponent as NoEntryIcon } from "../../assets/icons/NoEntry.svg";
 
 export const PaginationWrapper = styled.div`
   width: 100%;
@@ -89,7 +88,6 @@ export const PaginationButton = styled.button`
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  background: url(${NoEntryIcon}) center/contain no-repeat;
   pointer-events: none;
 }
 `;

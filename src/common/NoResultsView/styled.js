@@ -9,7 +9,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
 
-    @media (max-width: 768px) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
         margin-top: 24px;
         padding: 0px 16px;
     }
@@ -21,7 +21,7 @@ export const Header = styled.h1`
     line-height: 120%;
     margin: 0;
 
-    @media (max-width: 768px) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
         font-size: 14px;
         font-weight: 500;
     }
@@ -33,7 +33,7 @@ export const NoResultsImage = styled(Image)`
     align-self: center;
     margin-top: 40px;
 
-    @media (max-width: 768px) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobileMax}) {
         max-width: 400px;
         margin-top: 20px;
     }
