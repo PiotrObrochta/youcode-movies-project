@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import noPoster from "../../../assets/no-poster.svg";
 
 export const Wrapper = styled.main`
   max-width: 1368px;
@@ -212,12 +211,5 @@ export const MetaColumn = styled.div`
     width: auto;
     padding: 4px 0;
     gap: 16px;
-  }
-`;
-
-export const PosterFallbackScope = styled.div`
-  img[src*="via.placeholder.com"] {
-    content: url(${noPoster});
-    object-fit: contain;
   }
 `;

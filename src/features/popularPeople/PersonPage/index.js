@@ -22,6 +22,7 @@ import {
     MetaColumn,
 } from "./styled";
 import { PosterFallbackScope } from "./styled";
+import noProfile from "../../../assets/no-profile.svg";
 
 const formatDate = (date) => {
     if (!date) return "—";
@@ -60,7 +61,11 @@ const PersonPage = () => {
                 <DesktopHeader>
                     <ProfileImage>
                         <img
-                            src={`https://image.tmdb.org/t/p/w300${person.profile_path}`}
+                            src={
+                                person.profile_path
+                                    ? `https://image.tmdb.org/t/p/w300${person.profile_path}`
+                                    : noProfile
+                            }
                             alt={person.name}
                         />
                     </ProfileImage>
@@ -89,7 +94,11 @@ const PersonPage = () => {
                     <TopRow>
                         <ProfileImage>
                             <img
-                                src={`https://image.tmdb.org/t/p/w300${person.profile_path}`}
+                                src={
+                                    person.profile_path
+                                        ? `https://image.tmdb.org/t/p/w300${person.profile_path}`
+                                        : noProfile
+                                }
                                 alt={person.name}
                             />
                         </ProfileImage>
@@ -116,7 +125,6 @@ const PersonPage = () => {
 
             <MoviesSection>
                 <SectionTitle>Movies – cast ({cast.length})</SectionTitle>
-                <PosterFallbackScope>
                     <GridWrapper>
                         {cast.map((movie, index) => (
                             <MovieCard
@@ -126,12 +134,10 @@ const PersonPage = () => {
                             />
                         ))}
                     </GridWrapper>
-                </PosterFallbackScope>
             </MoviesSection>
 
             <MoviesSection>
                 <SectionTitle>Movies – crew ({crew.length})</SectionTitle>
-                <PosterFallbackScope>
                     <GridWrapper>
                         {crew.map((movie, index) => (
                             <MovieCard
@@ -141,7 +147,6 @@ const PersonPage = () => {
                             />
                         ))}
                     </GridWrapper>
-                </PosterFallbackScope>
             </MoviesSection>
         </Wrapper>
     );
