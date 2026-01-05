@@ -15,6 +15,7 @@ export const Wrapper = styled.div`
     grid-template-rows: auto auto 1fr;
     height: 100%;
     transition: box-shadow 0.3s ease;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
 
     &:hover {
         box-shadow: 0 8px 20px ${({ theme }) => theme.colors.darkShadow};
