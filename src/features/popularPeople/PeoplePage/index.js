@@ -1,14 +1,23 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, Link } from "react-router-dom";
+
+import LoadingView from "../../../common/LoadingView";
+import Pagination from "../../../common/Pagination";
+import ErrorView from "../../../common/ErrorView";
+import NoResultsView from "../../../common/NoResultsView";
+
 import {
   fetchPopularPeople,
   selectPopularPeople,
   selectFetchPopularPeopleStatus,
 } from "../peopleSlice";
 
-import LoadingView from "../../../common/LoadingView";
-import Pagination from "../../../common/Pagination";
-import { useLocation } from "react-router-dom";
+import {
+  selectSearchResults,
+  selectSearchStatus,
+  selectSubmittedQuery,
+} from "../../../common/search/searchSlice";
 
 import {
   PageWrapper,
@@ -20,55 +29,72 @@ import {
   Name,
   PhotoWrapper,
 } from "./styled";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-export const PeoplePage = () => {
+const PeoplePage = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
+
   const page = Number(new URLSearchParams(location.search).get("page") || 1);
 
-  const dispatch = useDispatch();
   const people = useSelector(selectPopularPeople);
   const status = useSelector(selectFetchPopularPeopleStatus);
 
+  const searchResults = useSelector(selectSearchResults);
+  const searchStatus = useSelector(selectSearchStatus);
+  const submittedQuery = useSelector(selectSubmittedQuery);
+
   useEffect(() => {
-    dispatch(fetchPopularPeople(page));
-  }, [page, dispatch]);
+    if (searchStatus !== "success") {
+      dispatch(fetchPopularPeople(page));
+    }
+  }, [dispatch, page, searchStatus]);
 
-  if (status === "loading") {
-    return <LoadingView header="People loading..." />;
-  }
+  if (status === "loading") return <LoadingView />;
+  if (status === "error") return <ErrorView />;
 
-  if (status === "error") {
-    return <h2>Cannot load people data</h2>;
-  }
+  const isSearching = searchStatus === "loading";
+  const isSearchDone = searchStatus === "success";
+
+  const showNoResults = isSearchDone && searchResults.length === 0;
+  const list = isSearchDone ? searchResults : people;
 
   return (
     <PageWrapper>
       <ContentWrapper>
-        <PageTitle>Popular People</PageTitle>
+        <PageTitle>
+          {isSearching
+            ? `Search results for "${submittedQuery}"`
+            : isSearchDone
+            ? `Search results for "${submittedQuery}" (${searchResults.length})`
+            : "Popular People"}
+        </PageTitle>
 
-        <PeopleGrid>
-          {people.map((person, index) => (
-            <PersonTile
-              key={`pop-person-${person.id}-${index}`}
-              as={Link}
-              to={`/people/${person.id}`}
-            >
-              <PhotoWrapper>
-                <Photo
-                  src={
-                    person.profile_path
-                      ? `https://image.tmdb.org/t/p/w185${person.profile_path}`
-                      : "/assets/no-profile.png"
-                  }
-                  alt={person.name}
-                />
-              </PhotoWrapper>
-              <Name>{person.name}</Name>
-            </PersonTile>
-          ))}
-        </PeopleGrid>
-        <Pagination page={page} totalPages={500} basePath="/people"></Pagination>
+        {isSearching && <LoadingView />}
+        {showNoResults && <NoResultsView query={submittedQuery} />}
+
+        {!isSearching && !showNoResults && (
+          <PeopleGrid>
+            {list.map((person) => (
+              <PersonTile key={person.id} as={Link} to={`/people/${person.id}`}>
+                <PhotoWrapper>
+                  <Photo
+                    src={
+                      person.profile_path
+                        ? `https://image.tmdb.org/t/p/w185${person.profile_path}`
+                        : "/assets/no-profile.png"
+                    }
+                    alt={person.name}
+                  />
+                </PhotoWrapper>
+                <Name>{person.name}</Name>
+              </PersonTile>
+            ))}
+          </PeopleGrid>
+        )}
+
+        {!isSearchDone && (
+          <Pagination page={page} totalPages={500} basePath="/people" />
+        )}
       </ContentWrapper>
     </PageWrapper>
   );
