@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
     justify-content: start;
     grid-column-gap: 40px; 
     max-height: 544px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
         padding: 16px;
