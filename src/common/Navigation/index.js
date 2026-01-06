@@ -24,8 +24,8 @@ import {
   selectSearchQuery,
 } from "../search/searchSlice";
 
+const DEBOUNCE = 800;
 const MIN_LENGTH = 3;
-const DEBOUNCE_TIME = 800;
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -51,68 +51,50 @@ const Navigation = () => {
 
   const onChange = (e) => {
     const value = e.target.value;
-
-    // zawsze aktualizujemy input
     dispatch(setQuery(value));
 
-    // czyścimy debounce
-    if (debounceRef.current) {
-      clearTimeout(debounceRef.current);
-    }
+    if (debounceRef.current) clearTimeout(debounceRef.current);
 
-    // JEŚLI INPUT JEST PUSTY → WRACAMY NA STRONĘ GŁÓWNĄ
-    if (value.length === 0) {
-      dispatch(clearSearch());
-      history.push(listPath);
-      return;
-    }
-
-    // poniżej 3 znaków → nie wyszukujemy
     if (value.length < MIN_LENGTH) {
+      if (value.length === 0) {
+        dispatch(clearSearch());
+        history.push(listPath);
+      }
       return;
     }
 
-    // debounce 800 ms
     debounceRef.current = setTimeout(() => {
       runSearch(value);
-    }, DEBOUNCE_TIME);
+    }, DEBOUNCE);
   };
 
   const onKeyDown = (e) => {
     if (e.key === "Enter") {
-      if (debounceRef.current) {
-        clearTimeout(debounceRef.current);
-      }
-
-      if (query.length >= MIN_LENGTH) {
-        runSearch(query);
-      }
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      runSearch(query);
     }
   };
 
-  const reset = () => {
-    if (debounceRef.current) {
-      clearTimeout(debounceRef.current);
-    }
-
+  const goTo = (path) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
     dispatch(clearSearch());
-    history.push(listPath);
+    history.push(path);
   };
 
   return (
     <HeaderBackground>
       <HeaderContainer>
         <Wrapper>
-          <LogoLink to="/movies" onClick={reset}>
+          <LogoLink to="/movies" onClick={() => goTo("/movies")}>
             <CameraIconStyled />
             <Title>Movies Browser</Title>
           </LogoLink>
 
           <Menu>
-            <MenuLink to="/movies" onClick={reset}>
+            <MenuLink to="/movies" onClick={() => goTo("/movies")}>
               MOVIES
             </MenuLink>
-            <MenuLink to="/people" onClick={reset}>
+            <MenuLink to="/people" onClick={() => goTo("/people")}>
               PEOPLE
             </MenuLink>
           </Menu>

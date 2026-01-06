@@ -1,4 +1,4 @@
-import { HashRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import Navigation from "./common/Navigation";
 
@@ -14,6 +14,10 @@ const App = () => {
       <Navigation />
 
       <Switch>
+        <Route exact path="/">
+          <Redirect to="/movies" />
+        </Route>
+
         <Route path="/movies/:id">
           <MoviePage />
         </Route>
