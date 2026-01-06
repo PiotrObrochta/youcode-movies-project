@@ -1,46 +1,68 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearSearch } from "../../../common/search/searchSlice";
+
 import PersonHeader from "./PersonHeader";
 import PersonMoviesCast from "./PersonMovies/PersonMoviesCast";
 import PersonMoviesCrew from "./PersonMovies/PersonMoviesCrew";
 import { Wrapper, HeaderSection } from "./styled";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+
 import { getPersonDetails, getPersonMovieCredits } from "../../tmdbApi";
 
+import LoadingView from "../../../common/LoadingView";
+import ErrorView from "../../../common/ErrorView";
+
 const PersonPage = () => {
-    const { personId } = useParams();
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
-    const [person, setPerson] = useState(null);
-    const [cast, setCast] = useState([]);
-    const [crew, setCrew] = useState([]);
+  const [person, setPerson] = useState(null);
+  const [cast, setCast] = useState([]);
+  const [crew, setCrew] = useState([]);
+  const [status, setStatus] = useState("idle");
 
-    useEffect(() => {
-        const fetchPerson = async () => {
-            try {
-                const personData = await getPersonDetails(personId);
-                const credits = await getPersonMovieCredits(personId);
+  useEffect(() => {
+    dispatch(clearSearch());
+  }, [dispatch]);
 
-                setPerson(personData);
-                setCast(credits.cast || []);
-                setCrew(credits.crew || []);
-            } catch (error) {
-                console.error(error);
-            }
-        };
+  useEffect(() => {
+    if (!id || isNaN(Number(id))) return;
 
-        fetchPerson();
-    }, [personId]);
+    const fetchPerson = async () => {
+      try {
+        setStatus("loading");
 
-    if (!person) return null;
+        const personData = await getPersonDetails(Number(id));
+        const credits = await getPersonMovieCredits(Number(id));
 
-    return (
-        <Wrapper>
-            <HeaderSection>
-                <PersonHeader person={person} />
-            </HeaderSection>
-            <PersonMoviesCast cast={cast} />
-            <PersonMoviesCrew crew={crew} />
-        </Wrapper>
-    );
+        setPerson(personData);
+        setCast(credits.cast || []);
+        setCrew(credits.crew || []);
+        setStatus("idle");
+      } catch (error) {
+        console.error(error);
+        setStatus("error");
+      }
+    };
+
+    fetchPerson();
+  }, [id]);
+
+  if (status === "loading") return <LoadingView />;
+  if (status === "error") return <ErrorView />;
+  if (!person) return null;
+
+  return (
+    <Wrapper>
+      <HeaderSection>
+        <PersonHeader person={person} />
+      </HeaderSection>
+
+      <PersonMoviesCast cast={cast} />
+      <PersonMoviesCrew crew={crew} />
+    </Wrapper>
+  );
 };
 
 export default PersonPage;

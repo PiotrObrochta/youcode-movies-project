@@ -2,27 +2,35 @@ import { useEffect, useState } from "react";
 import { fetchMovieCredits } from "../../tmdbApi";
 
 const useMovieCredits = (movieId) => {
-    const [credits, setCredits] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [credits, setCredits] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const loadCredits = async () => {
+  useEffect(() => {
+    if (!movieId || isNaN(movieId)) {
+      setCredits(null);
+      setLoading(false);
+      setError(new Error("Invalid movie id"));
+      return;
+    }
 
-            try {
-                const data = await fetchMovieCredits(movieId);
-                setCredits(data);
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            };
-        };
+    const loadCredits = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchMovieCredits(movieId);
+        setCredits(data);
+        setError(null);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-        loadCredits();
-    }, [movieId]);
+    loadCredits();
+  }, [movieId]);
 
-    return [credits, loading, error];
-}
+  return [credits, loading, error];
+};
 
 export default useMovieCredits;

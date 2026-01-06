@@ -1,89 +1,125 @@
 const apiKey = process.env.REACT_APP_TMDB_API_KEY;
+const baseUrl = "https://api.themoviedb.org/3";
+
+const MAX_SEARCH_PAGES = 5;
 
 export const getDataFromApi = async (type = "movie", page = 1) => {
+  let endpoint;
 
-    let endpoint = undefined;
+  switch (type) {
+    case "movie":
+      endpoint = `${baseUrl}/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`;
+      break;
+    case "people":
+      endpoint = `${baseUrl}/person/popular?api_key=${apiKey}&language=en-US&page=${page}`;
+      break;
+    case "genre":
+      endpoint = `${baseUrl}/genre/movie/list?api_key=${apiKey}&language=en-US`;
+      break;
+    default:
+      endpoint = `${baseUrl}/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`;
+  }
 
-    switch (type) {
-        case "movie":
-            endpoint = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`;
-            break;
-        case "people":
-            endpoint = `https://api.themoviedb.org/3/person/popular?api_key=${apiKey}&language=en-US&page=${page}`;
-            break;
-        case "genre":
-            endpoint = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`;
-            break;
-        default:
-            endpoint = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`;
-    }
+  const response = await fetch(endpoint);
+  if (!response.ok) {
+    throw new Error("Fetching data failed");
+  }
 
-    const response = await fetch(endpoint);
+  const result = await response.json();
+  return type === "genre" ? result.genres : result.results;
+};
 
+const fetchSearchPage = async (url) => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Search request failed");
+  }
+  return await response.json();
+};
 
-    if (!response.ok) {
-        throw new Error("Fetching movies failed")
-    }
+export const searchMovies = async (query) => {
+  const firstPageUrl = `${baseUrl}/search/movie?api_key=${apiKey}&language=en-US&query=${encodeURIComponent(
+    query
+  )}&page=1`;
 
-    const result = await response.json();
+  const firstPage = await fetchSearchPage(firstPageUrl);
 
-    if (type === "genre") return result.genres;
-    return await result.results;
+  const totalPages = Math.min(firstPage.total_pages, MAX_SEARCH_PAGES);
+  let results = [...firstPage.results];
+
+  for (let page = 2; page <= totalPages; page++) {
+    const pageUrl = `${baseUrl}/search/movie?api_key=${apiKey}&language=en-US&query=${encodeURIComponent(
+      query
+    )}&page=${page}`;
+
+    const pageData = await fetchSearchPage(pageUrl);
+    results = results.concat(pageData.results);
+  }
+
+  return results;
+};
+
+export const searchPeople = async (query) => {
+  const firstPageUrl = `${baseUrl}/search/person?api_key=${apiKey}&language=en-US&query=${encodeURIComponent(
+    query
+  )}&page=1`;
+
+  const firstPage = await fetchSearchPage(firstPageUrl);
+
+  const totalPages = Math.min(firstPage.total_pages, MAX_SEARCH_PAGES);
+  let results = [...firstPage.results];
+
+  for (let page = 2; page <= totalPages; page++) {
+    const pageUrl = `${baseUrl}/search/person?api_key=${apiKey}&language=en-US&query=${encodeURIComponent(
+      query
+    )}&page=${page}`;
+
+    const pageData = await fetchSearchPage(pageUrl);
+    results = results.concat(pageData.results);
+  }
+
+  return results;
 };
 
 export const fetchMovieData = async (id) => {
-    const endpoint = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
-
-    const response = await fetch(endpoint);
-
-    if (!response.ok) {
-        throw new Error("Fetching movies failed");
-    }
-
-    return await response.json();
+  const response = await fetch(`${baseUrl}/movie/${id}?api_key=${apiKey}`);
+  if (!response.ok) {
+    throw new Error("Fetching movie failed");
+  }
+  return await response.json();
 };
 
 export const fetchMovieCredits = async (id) => {
-    const endpoint = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}`;
-
-    const response = await fetch(endpoint);
-
-    if (!response.ok) {
-        throw new Error("Fetching movies failed");
-    }
-
-    return await response.json();
-}
-
-export const getPersonDetails = async (personId) => {
-    const apiKey = "a85fbe514b26d45ce26b9e97d6b6977c";
-
-    const endpoint = `https://api.themoviedb.org/3/person/${personId}?api_key=${apiKey}&language=en-US`
-
-    const response = await fetch(endpoint);
-
-    if (!response.ok) {
-        throw new Error("Fetching person details failed");
-    }
-
-    return await response.json();
+  const response = await fetch(
+    `${baseUrl}/movie/${id}/credits?api_key=${apiKey}`
+  );
+  if (!response.ok) {
+    throw new Error("Fetching movie credits failed");
+  }
+  return await response.json();
 };
 
-export const getPersonMovieCredits = async (personId) => {
-    const apiKey = "a85fbe514b26d45ce26b9e97d6b6977c";
+export const getPersonDetails = async (id) => {
+  const response = await fetch(
+    `${baseUrl}/person/${id}?api_key=${apiKey}&language=en-US`
+  );
+  if (!response.ok) {
+    throw new Error("Fetching person details failed");
+  }
+  return await response.json();
+};
 
-    const endpoint = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${apiKey}&language=en-US`;
+export const getPersonMovieCredits = async (id) => {
+  const response = await fetch(
+    `${baseUrl}/person/${id}/movie_credits?api_key=${apiKey}&language=en-US`
+  );
+  if (!response.ok) {
+    throw new Error("Fetching person movie credits failed");
+  }
 
-    const response = await fetch(endpoint);
-
-    if (!response.ok) {
-        throw new Error("Fetching person movie credits failed");
-    }
-
-    const result = await response.json();
-
-    return {
-        cast: result.cast || [],
-        crew: result.crew || [],
-    };
+  const result = await response.json();
+  return {
+    cast: result.cast || [],
+    crew: result.crew || [],
+  };
 };

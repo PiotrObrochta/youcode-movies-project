@@ -11,7 +11,12 @@ import { useHistory } from "react-router-dom";
 const Pagination = ({ page, totalPages, basePath }) => {
   const history = useHistory();
 
-  const goToPage = (p) => history.push(`${basePath}?page=${p}`);
+  const hasQuery = basePath.includes("?");
+  const pageParam = hasQuery ? "&page=" : "?page=";
+
+  const goToPage = (p) => {
+    history.push(`${basePath}${pageParam}${p}`);
+  };
 
   const isFirstPage = page === 1;
   const isLastPage = page === totalPages;
