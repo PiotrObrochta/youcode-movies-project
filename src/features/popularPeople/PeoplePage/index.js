@@ -29,6 +29,7 @@ import {
   Name,
   PhotoWrapper,
 } from "./styled";
+import noProfile from "../../../assets/no-profile.svg";
 
 const PeoplePage = () => {
   const dispatch = useDispatch();
@@ -81,7 +82,7 @@ const PeoplePage = () => {
                     src={
                       person.profile_path
                         ? `https://image.tmdb.org/t/p/w185${person.profile_path}`
-                        : "/assets/no-profile.png"
+                        : noProfile
                     }
                     alt={person.name}
                   />
