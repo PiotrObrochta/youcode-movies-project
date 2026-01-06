@@ -1,6 +1,8 @@
 const apiKey = process.env.REACT_APP_TMDB_API_KEY;
 const baseUrl = "https://api.themoviedb.org/3";
 
+const MAX_SEARCH_PAGES = 5;
+
 export const getDataFromApi = async (type = "movie", page = 1) => {
   let endpoint;
 
@@ -27,32 +29,56 @@ export const getDataFromApi = async (type = "movie", page = 1) => {
   return type === "genre" ? result.genres : result.results;
 };
 
-export const searchMovies = async (query) => {
-  const endpoint = `${baseUrl}/search/movie?api_key=${apiKey}&language=en-US&query=${encodeURIComponent(
-    query
-  )}`;
-
-  const response = await fetch(endpoint);
+const fetchSearchPage = async (url) => {
+  const response = await fetch(url);
   if (!response.ok) {
-    throw new Error("Searching movies failed");
+    throw new Error("Search request failed");
+  }
+  return await response.json();
+};
+
+export const searchMovies = async (query) => {
+  const firstPageUrl = `${baseUrl}/search/movie?api_key=${apiKey}&language=en-US&query=${encodeURIComponent(
+    query
+  )}&page=1`;
+
+  const firstPage = await fetchSearchPage(firstPageUrl);
+
+  const totalPages = Math.min(firstPage.total_pages, MAX_SEARCH_PAGES);
+  let results = [...firstPage.results];
+
+  for (let page = 2; page <= totalPages; page++) {
+    const pageUrl = `${baseUrl}/search/movie?api_key=${apiKey}&language=en-US&query=${encodeURIComponent(
+      query
+    )}&page=${page}`;
+
+    const pageData = await fetchSearchPage(pageUrl);
+    results = results.concat(pageData.results);
   }
 
-  const result = await response.json();
-  return result.results;
+  return results;
 };
 
 export const searchPeople = async (query) => {
-  const endpoint = `${baseUrl}/search/person?api_key=${apiKey}&language=en-US&query=${encodeURIComponent(
+  const firstPageUrl = `${baseUrl}/search/person?api_key=${apiKey}&language=en-US&query=${encodeURIComponent(
     query
-  )}`;
+  )}&page=1`;
 
-  const response = await fetch(endpoint);
-  if (!response.ok) {
-    throw new Error("Searching people failed");
+  const firstPage = await fetchSearchPage(firstPageUrl);
+
+  const totalPages = Math.min(firstPage.total_pages, MAX_SEARCH_PAGES);
+  let results = [...firstPage.results];
+
+  for (let page = 2; page <= totalPages; page++) {
+    const pageUrl = `${baseUrl}/search/person?api_key=${apiKey}&language=en-US&query=${encodeURIComponent(
+      query
+    )}&page=${page}`;
+
+    const pageData = await fetchSearchPage(pageUrl);
+    results = results.concat(pageData.results);
   }
 
-  const result = await response.json();
-  return result.results;
+  return results;
 };
 
 export const fetchMovieData = async (id) => {

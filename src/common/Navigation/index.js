@@ -34,7 +34,7 @@ const Navigation = () => {
   const query = useSelector(selectSearchQuery);
 
   const debounceRef = useRef(null);
-  const lastValueRef = useRef("");
+  const lastValueRef = useRef(query);
   const didInitRef = useRef(false);
 
   const isPeopleContext = location.pathname.startsWith("/people");
@@ -45,13 +45,12 @@ const Navigation = () => {
     didInitRef.current = true;
 
     const params = new URLSearchParams(location.search);
-    const searchFromUrl = params.get("search");
+    const hasSearch = params.has("search");
 
-    if (searchFromUrl) {
-      dispatch(setQuery(searchFromUrl));
-      lastValueRef.current = searchFromUrl;
+    if (!location.pathname || (location.pathname === "/" && !hasSearch)) {
+      history.replace("/movies");
     }
-  }, [dispatch, location.search]);
+  }, [history, location.pathname, location.search]);
 
   const executeSearch = (value) => {
     if (value.length < MIN_LENGTH) return;
@@ -71,9 +70,7 @@ const Navigation = () => {
     dispatch(setQuery(value));
     lastValueRef.current = value;
 
-    if (debounceRef.current) {
-      clearTimeout(debounceRef.current);
-    }
+    if (debounceRef.current) clearTimeout(debounceRef.current);
 
     if (value.length < prevValue.length) return;
 
@@ -86,9 +83,7 @@ const Navigation = () => {
 
   const onKeyDown = (e) => {
     if (e.key === "Enter") {
-      if (debounceRef.current) {
-        clearTimeout(debounceRef.current);
-      }
+      if (debounceRef.current) clearTimeout(debounceRef.current);
 
       if (query.length >= MIN_LENGTH) {
         executeSearch(query);
@@ -97,9 +92,7 @@ const Navigation = () => {
   };
 
   const reset = () => {
-    if (debounceRef.current) {
-      clearTimeout(debounceRef.current);
-    }
+    if (debounceRef.current) clearTimeout(debounceRef.current);
 
     dispatch(clearSearch());
     history.push(listPath);
