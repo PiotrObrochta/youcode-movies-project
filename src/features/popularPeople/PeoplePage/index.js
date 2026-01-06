@@ -31,6 +31,7 @@ import {
   Name,
   PhotoWrapper,
 } from "./styled";
+import noProfile from "../../../assets/no-profile.svg";
 
 import noProfile from "../../../assets/no-profile.svg";
 
