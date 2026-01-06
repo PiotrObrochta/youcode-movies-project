@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -24,6 +24,9 @@ import {
   selectSearchQuery,
 } from "../search/searchSlice";
 
+const MIN_LENGTH = 3;
+const DEBOUNCE_TIME = 800;
+
 const Navigation = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -31,44 +34,68 @@ const Navigation = () => {
   const query = useSelector(selectSearchQuery);
 
   const debounceRef = useRef(null);
+  const lastValueRef = useRef(query);
+  const didInitRef = useRef(false);
 
   const isPeopleContext = location.pathname.startsWith("/people");
   const listPath = isPeopleContext ? "/people" : "/movies";
 
-  const reset = () => {
-    dispatch(clearSearch());
-  };
+  useEffect(() => {
+    if (didInitRef.current) return;
+    didInitRef.current = true;
 
-  const executeSearch = () => {
-    if (query.length < 3) return;
+    const params = new URLSearchParams(location.search);
+    const hasSearch = params.has("search");
 
-    const searchUrl = `${listPath}?search=${encodeURIComponent(query)}`;
+    if (!location.pathname || (location.pathname === "/" && !hasSearch)) {
+      history.replace("/movies");
+    }
+  }, [history, location.pathname, location.search]);
 
-    history.replace(searchUrl);
+  const executeSearch = (value) => {
+    if (value.length < MIN_LENGTH) return;
+
+    history.push({
+      pathname: listPath,
+      search: `?search=${encodeURIComponent(value)}&page=1`,
+    });
 
     dispatch(submitSearch());
   };
 
   const onChange = (e) => {
     const value = e.target.value;
+    const prevValue = lastValueRef.current;
+
     dispatch(setQuery(value));
+    lastValueRef.current = value;
 
-    if (debounceRef.current) {
-      clearTimeout(debounceRef.current);
-    }
+    if (debounceRef.current) clearTimeout(debounceRef.current);
 
-    if (!value) return;
+    if (value.length < prevValue.length) return;
 
-    debounceRef.current = setTimeout(executeSearch, 800);
+    if (value.length < MIN_LENGTH) return;
+
+    debounceRef.current = setTimeout(() => {
+      executeSearch(value);
+    }, DEBOUNCE_TIME);
   };
 
   const onKeyDown = (e) => {
     if (e.key === "Enter") {
-      if (debounceRef.current) {
-        clearTimeout(debounceRef.current);
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+
+      if (query.length >= MIN_LENGTH) {
+        executeSearch(query);
       }
-      executeSearch();
     }
+  };
+
+  const reset = () => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    dispatch(clearSearch());
+    history.push(listPath);
   };
 
   return (

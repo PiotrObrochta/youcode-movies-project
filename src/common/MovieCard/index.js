@@ -19,21 +19,22 @@ import {
   selectFetchMoviesGenresStatus,
   selectMoviesGenres,
 } from "../genres/genresSlice";
-import noPoster from "../../assets/no-poster.svg"
+import noPoster from "../../assets/no-poster.svg";
 
 export const MovieCard = ({ movie, mode }) => {
   const moviesGenres = useSelector(selectMoviesGenres);
   const fetchMoviesGenresStatus = useSelector(selectFetchMoviesGenresStatus);
 
   if (!movie) return null;
-  if (fetchMoviesGenresStatus !== "success") return;
+  if (fetchMoviesGenresStatus !== "success") return null;
 
   const movieGenres = (movie.genre_ids || [])
     .slice(0, 3)
-    .map((id) => moviesGenres.find((genre) => genre.id === id));
+    .map((id) => moviesGenres.find((genre) => genre.id === id))
+    .filter(Boolean);
 
   return (
-    <StyledLink to={`/movie/${movie.id}`}>
+    <StyledLink to={`/movies/${movie.id}`}>
       <Card>
         <PosterWrapper>
           <Poster
@@ -49,6 +50,7 @@ export const MovieCard = ({ movie, mode }) => {
         <Content>
           <InfoWrapper>
             <Title>{movie.title}</Title>
+
             {mode === "cast" && movie.character && (
               <Info>
                 as {movie.character}
@@ -63,16 +65,15 @@ export const MovieCard = ({ movie, mode }) => {
               </Info>
             )}
 
+            {!mode && <Info>{movie.release_date?.slice(0, 4)}</Info>}
 
-            {!mode && (
-              <Info>{movie.release_date?.slice(0, 4)}</Info>
-            )}
             <GenresWrapper>
               {movieGenres.map(({ id, name }) => (
                 <GenreTag key={id}>{name}</GenreTag>
               ))}
             </GenresWrapper>
           </InfoWrapper>
+
           <RatingWrapper>
             <Star />
             <RatingValue>

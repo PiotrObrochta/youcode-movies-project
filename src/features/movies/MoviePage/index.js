@@ -23,17 +23,22 @@ const MoviePage = () => {
     dispatch(clearSearch());
   }, [dispatch]);
 
-  const [movie, loadingMovie, errorMovie] = useMovie(id);
-  const [credits, loadingCredits, errorCredits] = useMovieCredits(id);
+  const movieId = Number(id);
+
+  const [movie, loadingMovie, errorMovie] = useMovie(movieId);
+  const [credits, loadingCredits, errorCredits] = useMovieCredits(movieId);
 
   if (loadingMovie) return <LoadingView />;
   if (errorMovie) return <ErrorView />;
+  if (!movie) return <ErrorView />;
 
-  const backdropURL = `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`;
+  const backdropURL = movie.backdrop_path
+    ? `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`
+    : null;
 
   return (
     <>
-      {movie.backdrop_path && (
+      {backdropURL && (
         <Hero>
           <BackdropWrapper $backdropURL={backdropURL}>
             <HeroContent>
@@ -47,7 +52,7 @@ const MoviePage = () => {
       <PageWrapper>
         <MovieDescription movie={movie} />
 
-        {!loadingCredits && !errorCredits && (
+        {!loadingCredits && !errorCredits && credits && (
           <>
             <PeopleList header="Cast" people={credits.cast} />
             <PeopleList header="Crew" people={credits.crew} />

@@ -22,7 +22,8 @@ function* searchHandler() {
 
     yield put(setResults(results));
     yield put(setStatus("success"));
-  } catch {
+  } catch (error) {
+    console.error("Search error:", error);
     yield put(setStatus("error"));
   }
 }
