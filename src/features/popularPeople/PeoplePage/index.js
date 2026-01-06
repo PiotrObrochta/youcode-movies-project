@@ -33,8 +33,6 @@ import {
 } from "./styled";
 import noProfile from "../../../assets/no-profile.svg";
 
-import noProfile from "../../../assets/no-profile.svg";
-
 const SEARCH_PAGE_SIZE = 36;
 
 const PeoplePage = () => {

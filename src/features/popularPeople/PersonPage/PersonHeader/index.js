@@ -12,14 +12,20 @@ import {
     MetaColumn,
     Biography,
 } from "./styled";
+import noProfile from "../../../../assets/no-profile.svg";
 
 const PersonHeader = ({ person }) => {
+    console.log(person)
     return (
         <>
             <DesktopHeader>
                 <ProfileImage>
                     <img
-                        src={`https://image.tmdb.org/t/p/w300${person.profile_path}`}
+                        src={
+                                person.profile_path
+                                    ? `https://image.tmdb.org/t/p/w300${person.profile_path}`
+                                    : noProfile
+                            }
                         alt={person.name}
                     />
                 </ProfileImage>
@@ -46,7 +52,11 @@ const PersonHeader = ({ person }) => {
                 <TopRow>
                     <ProfileImage>
                         <img
-                            src={`https://image.tmdb.org/t/p/w300${person.profile_path}`}
+                            src={
+                                person.profile_path
+                                    ? `https://image.tmdb.org/t/p/w300${person.profile_path}`
+                                    : noProfile
+                            }
                             alt={person.name}
                         />
                     </ProfileImage>
