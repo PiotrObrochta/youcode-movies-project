@@ -52,6 +52,27 @@ export const PaginationButton = styled.button`
     align-items: center;
   }
 
+&:hover:not(:disabled) {
+  background-color: ${({ theme, $variant }) =>
+    $variant === "primary"
+      ? theme.colors.blueLightHover
+      : theme.colors.grayHover};
+
+  box-shadow: 0 4px 14px rgba(64, 132, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    filter: grayscale(1);
+  }
+
 @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}) {
   span {
     display: none;
