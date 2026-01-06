@@ -4,6 +4,8 @@ Movies Browser is a fully responsive web application that allows users to browse
 
 The application enables comfortable navigation through movies, detailed movie pages with full cast & crew, as well as popular people and their filmography.
 
+![Movies browser](src/assets/demo.gif)
+
 ## 🔗 Demo
 
 [Movies Browser Demo](https://PiotrObrochta.github.io/youcode-movies-project)
