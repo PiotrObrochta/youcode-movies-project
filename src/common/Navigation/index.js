@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -34,25 +34,11 @@ const Navigation = () => {
   const query = useSelector(selectSearchQuery);
 
   const debounceRef = useRef(null);
-  const lastValueRef = useRef(query);
-  const didInitRef = useRef(false);
 
   const isPeopleContext = location.pathname.startsWith("/people");
   const listPath = isPeopleContext ? "/people" : "/movies";
 
-  useEffect(() => {
-    if (didInitRef.current) return;
-    didInitRef.current = true;
-
-    const params = new URLSearchParams(location.search);
-    const hasSearch = params.has("search");
-
-    if (!location.pathname || (location.pathname === "/" && !hasSearch)) {
-      history.replace("/movies");
-    }
-  }, [history, location.pathname, location.search]);
-
-  const executeSearch = (value) => {
+  const runSearch = (value) => {
     if (value.length < MIN_LENGTH) return;
 
     history.push({
@@ -65,34 +51,49 @@ const Navigation = () => {
 
   const onChange = (e) => {
     const value = e.target.value;
-    const prevValue = lastValueRef.current;
 
+    // zawsze aktualizujemy input
     dispatch(setQuery(value));
-    lastValueRef.current = value;
 
-    if (debounceRef.current) clearTimeout(debounceRef.current);
+    // czyścimy debounce
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
 
-    if (value.length < prevValue.length) return;
+    // JEŚLI INPUT JEST PUSTY → WRACAMY NA STRONĘ GŁÓWNĄ
+    if (value.length === 0) {
+      dispatch(clearSearch());
+      history.push(listPath);
+      return;
+    }
 
-    if (value.length < MIN_LENGTH) return;
+    // poniżej 3 znaków → nie wyszukujemy
+    if (value.length < MIN_LENGTH) {
+      return;
+    }
 
+    // debounce 800 ms
     debounceRef.current = setTimeout(() => {
-      executeSearch(value);
+      runSearch(value);
     }, DEBOUNCE_TIME);
   };
 
   const onKeyDown = (e) => {
     if (e.key === "Enter") {
-      if (debounceRef.current) clearTimeout(debounceRef.current);
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
 
       if (query.length >= MIN_LENGTH) {
-        executeSearch(query);
+        runSearch(query);
       }
     }
   };
 
   const reset = () => {
-    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
 
     dispatch(clearSearch());
     history.push(listPath);

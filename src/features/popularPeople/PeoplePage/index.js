@@ -17,7 +17,6 @@ import {
   setQuery,
   submitSearch,
   selectSearchResults,
-  selectSearchStatus,
   selectSubmittedQuery,
 } from "../../../common/search/searchSlice";
 
@@ -31,6 +30,7 @@ import {
   Name,
   PhotoWrapper,
 } from "./styled";
+
 import noProfile from "../../../assets/no-profile.svg";
 
 const SEARCH_PAGE_SIZE = 36;
@@ -43,14 +43,15 @@ const PeoplePage = () => {
   const page = Number(params.get("page") || 1);
   const searchFromUrl = params.get("search");
 
-  const people = useSelector(selectPopularPeople);
+  const people = useSelector(selectPopularPeople) || [];
   const status = useSelector(selectFetchPopularPeopleStatus);
 
-  const searchResults = useSelector(selectSearchResults);
-  const searchStatus = useSelector(selectSearchStatus);
+  const searchResults = useSelector(selectSearchResults) || [];
   const submittedQuery = useSelector(selectSubmittedQuery);
 
   const [showLoader, setShowLoader] = useState(false);
+
+  const isSearchActive = Boolean(searchFromUrl);
 
   useEffect(() => {
     if (searchFromUrl && searchFromUrl !== submittedQuery) {
@@ -60,27 +61,26 @@ const PeoplePage = () => {
   }, [dispatch, searchFromUrl, submittedQuery]);
 
   useEffect(() => {
-    if (!searchFromUrl) {
+    if (!isSearchActive) {
       dispatch(fetchPopularPeople(page));
     }
-  }, [dispatch, page, searchFromUrl]);
+  }, [dispatch, page, isSearchActive]);
 
   useEffect(() => {
-    if (searchStatus === "loading") {
-      setShowLoader(true);
-      return;
-    }
+    if (!isSearchActive) return;
 
-    if (searchStatus === "success" || searchStatus === "error") {
-      const timer = setTimeout(() => setShowLoader(false), 800);
-      return () => clearTimeout(timer);
-    }
-  }, [searchStatus]);
+    setShowLoader(true);
+    window.scrollTo({ top: 0 });
 
-  if (status === "loading" && !searchFromUrl) return <LoadingView />;
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [page, isSearchActive]);
+
+  if (status === "loading" && !isSearchActive) return <LoadingView />;
   if (status === "error") return <ErrorView />;
-
-  const isSearchActive = Boolean(searchFromUrl);
 
   const pagedSearchResults = searchResults.slice(
     (page - 1) * SEARCH_PAGE_SIZE,
@@ -94,16 +94,14 @@ const PeoplePage = () => {
       <ContentWrapper>
         <PageTitle>
           {isSearchActive
-            ? `Search results for "${submittedQuery}" (${
-                showLoader ? 0 : searchResults.length
-              })`
+            ? `Search results for "${submittedQuery}" (${searchResults.length})`
             : "Popular People"}
         </PageTitle>
 
         {showLoader && <LoadingView />}
 
         {!showLoader && isSearchActive && searchResults.length === 0 && (
-          <NoResultsView query={submittedQuery} />
+          <NoResultsView />
         )}
 
         {!showLoader && (
