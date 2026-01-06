@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -24,8 +24,8 @@ import {
   selectSearchQuery,
 } from "../search/searchSlice";
 
+const DEBOUNCE = 800;
 const MIN_LENGTH = 3;
-const DEBOUNCE_TIME = 800;
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -34,25 +34,11 @@ const Navigation = () => {
   const query = useSelector(selectSearchQuery);
 
   const debounceRef = useRef(null);
-  const lastValueRef = useRef(query);
-  const didInitRef = useRef(false);
 
   const isPeopleContext = location.pathname.startsWith("/people");
   const listPath = isPeopleContext ? "/people" : "/movies";
 
-  useEffect(() => {
-    if (didInitRef.current) return;
-    didInitRef.current = true;
-
-    const params = new URLSearchParams(location.search);
-    const hasSearch = params.has("search");
-
-    if (!location.pathname || (location.pathname === "/" && !hasSearch)) {
-      history.replace("/movies");
-    }
-  }, [history, location.pathname, location.search]);
-
-  const executeSearch = (value) => {
+  const runSearch = (value) => {
     if (value.length < MIN_LENGTH) return;
 
     history.push({
@@ -65,53 +51,50 @@ const Navigation = () => {
 
   const onChange = (e) => {
     const value = e.target.value;
-    const prevValue = lastValueRef.current;
-
     dispatch(setQuery(value));
-    lastValueRef.current = value;
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
 
-    if (value.length < prevValue.length) return;
-
-    if (value.length < MIN_LENGTH) return;
+    if (value.length < MIN_LENGTH) {
+      if (value.length === 0) {
+        dispatch(clearSearch());
+        history.push(listPath);
+      }
+      return;
+    }
 
     debounceRef.current = setTimeout(() => {
-      executeSearch(value);
-    }, DEBOUNCE_TIME);
+      runSearch(value);
+    }, DEBOUNCE);
   };
 
   const onKeyDown = (e) => {
     if (e.key === "Enter") {
       if (debounceRef.current) clearTimeout(debounceRef.current);
-
-      if (query.length >= MIN_LENGTH) {
-        executeSearch(query);
-      }
+      runSearch(query);
     }
   };
 
-  const reset = () => {
+  const goTo = (path) => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
-
     dispatch(clearSearch());
-    history.push(listPath);
+    history.push(path);
   };
 
   return (
     <HeaderBackground>
       <HeaderContainer>
         <Wrapper>
-          <LogoLink to="/movies" onClick={reset}>
+          <LogoLink to="/movies" onClick={() => goTo("/movies")}>
             <CameraIconStyled />
             <Title>Movies Browser</Title>
           </LogoLink>
 
           <Menu>
-            <MenuLink to="/movies" onClick={reset}>
+            <MenuLink to="/movies" onClick={() => goTo("/movies")}>
               MOVIES
             </MenuLink>
-            <MenuLink to="/people" onClick={reset}>
+            <MenuLink to="/people" onClick={() => goTo("/people")}>
               PEOPLE
             </MenuLink>
           </Menu>
@@ -136,5 +119,5 @@ const Navigation = () => {
     </HeaderBackground>
   );
 };
-
+// test
 export default Navigation;

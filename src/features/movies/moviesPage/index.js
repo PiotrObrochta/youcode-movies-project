@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
@@ -16,12 +16,13 @@ import {
 } from "../moviesSlice";
 
 import {
-  setQuery,
-  submitSearch,
   selectSearchResults,
-  selectSearchStatus,
   selectSubmittedQuery,
 } from "../../../common/search/searchSlice";
+
+import { useSearchPageEffect } from "../../../common/search/useSearchPageEffect";
+import { useSearchResults } from "../../../common/search/useSearchResults";
+import { useSearchLoaderEffect } from "../../../common/search/useSearchLoaderEffect";
 
 import { PageWrapper, ContentWrapper, PageTitle, GridWrapper } from "./styled";
 
@@ -35,22 +36,30 @@ const MoviesPage = () => {
   const page = Number(params.get("page") || 1);
   const searchFromUrl = params.get("search");
 
-  const movies = useSelector(selectPopularMovies);
+  const movies = useSelector(selectPopularMovies) || [];
   const status = useSelector(selectFetchPopularMoviesStatus);
   const totalPages = useSelector(selectTotalPopularMoviesPages);
 
-  const searchResults = useSelector(selectSearchResults);
-  const searchStatus = useSelector(selectSearchStatus);
+  const searchResults = useSelector(selectSearchResults) || [];
   const submittedQuery = useSelector(selectSubmittedQuery);
 
-  const [showLoader, setShowLoader] = useState(false);
+  useSearchPageEffect({ searchFromUrl, submittedQuery });
 
-  useEffect(() => {
-    if (searchFromUrl && searchFromUrl !== submittedQuery) {
-      dispatch(setQuery(searchFromUrl));
-      dispatch(submitSearch());
-    }
-  }, [dispatch, searchFromUrl, submittedQuery]);
+  const {
+    isSearchActive,
+    pagedResults,
+    totalPages: searchTotalPages,
+  } = useSearchResults({
+    searchResults,
+    page,
+    pageSize: SEARCH_PAGE_SIZE,
+    searchFromUrl,
+  });
+
+  const showLoader = useSearchLoaderEffect({
+    isSearchActive,
+    page,
+  });
 
   useEffect(() => {
     if (!searchFromUrl) {
@@ -58,50 +67,27 @@ const MoviesPage = () => {
     }
   }, [dispatch, page, searchFromUrl]);
 
-  useEffect(() => {
-    if (searchStatus === "loading") {
-      setShowLoader(true);
-      return;
-    }
-
-    if (searchStatus === "success" || searchStatus === "error") {
-      const timer = setTimeout(() => setShowLoader(false), 800);
-      return () => clearTimeout(timer);
-    }
-  }, [searchStatus]);
-
-  if (status === "loading" && !searchFromUrl) return <LoadingView />;
+  if (status === "loading" && !isSearchActive) return <LoadingView />;
   if (status === "error") return <ErrorView />;
-
-  const isSearchActive = Boolean(searchFromUrl);
-
-  const pagedSearchResults = searchResults.slice(
-    (page - 1) * SEARCH_PAGE_SIZE,
-    page * SEARCH_PAGE_SIZE
-  );
-
-  const searchTotalPages = Math.ceil(searchResults.length / SEARCH_PAGE_SIZE);
 
   return (
     <PageWrapper>
       <ContentWrapper>
         <PageTitle>
           {isSearchActive
-            ? `Search results for "${submittedQuery}" (${
-                showLoader ? 0 : searchResults.length
-              })`
+            ? `Search results for "${submittedQuery}" (${searchResults.length})`
             : "Popular Movies"}
         </PageTitle>
 
         {showLoader && <LoadingView />}
 
         {!showLoader && isSearchActive && searchResults.length === 0 && (
-          <NoResultsView query={submittedQuery} />
+          <NoResultsView />
         )}
 
         {!showLoader && (
           <GridWrapper>
-            {(isSearchActive ? pagedSearchResults : movies).map((movie) => (
+            {(isSearchActive ? pagedResults : movies).map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
           </GridWrapper>
